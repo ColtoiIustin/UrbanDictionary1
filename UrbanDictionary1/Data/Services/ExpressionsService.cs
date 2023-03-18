@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ActionConstraints;
+using Microsoft.EntityFrameworkCore;
 using UrbanDictionary1.Models;
 
 namespace UrbanDictionary1.Data.Services
@@ -17,9 +19,11 @@ namespace UrbanDictionary1.Data.Services
             await _context.SaveChangesAsync();
         }
 
-        public void Delete(int id)
+        public async Task DeleteAsync(int id)
         {
-            throw new NotImplementedException();
+            var result = await _context.Expressions.FirstOrDefaultAsync(x => x.Id == id);
+            _context.Expressions.Remove(result);
+            await _context.SaveChangesAsync();
         }
 
         public async Task<IEnumerable<Expression>> GetAllAsync()

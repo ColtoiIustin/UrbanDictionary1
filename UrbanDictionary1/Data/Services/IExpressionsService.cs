@@ -8,7 +8,7 @@ namespace UrbanDictionary1.Data.Services
         Task <Expression> GetByIdAsync(int id);
         Task AddAsync(Expression expression);
         Task<Expression> UpdateAsync(int id, Expression newExpression);
-        void Delete(int id);
+        Task DeleteAsync(int id);
 
     }
 }

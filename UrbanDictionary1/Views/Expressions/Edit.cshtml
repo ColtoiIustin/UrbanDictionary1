@@ -1,10 +1,14 @@
 ﻿@model UrbanDictionary1.Models.Expression
+@{
+    ViewData["Title"] = "Edit";
+}
+
 
 <h4>Expression</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="TakeDataAndEdit">
+        <form asp-action="EditConfirmed">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
             <div class="form-group">

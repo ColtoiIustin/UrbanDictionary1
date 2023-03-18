@@ -63,7 +63,7 @@ namespace UrbanDictionary1.Controllers
 
         //POST: Expressions/TakeDataAndEdit
         [HttpPost]
-        public async Task<IActionResult> TakeDataAndEdit(int id,[Bind("Id,Name,Explication,Example1,CreationDate,Author,Likes,Dislikes")] Expression expression)
+        public async Task<IActionResult> EditConfirmed(int id,[Bind("Id,Name,Explication,Example1,CreationDate,Author,Likes,Dislikes")] Expression expression)
         {
             if (!ModelState.IsValid)
             {
@@ -71,6 +71,27 @@ namespace UrbanDictionary1.Controllers
             }
 
             await _service.UpdateAsync(id, expression);
+            return RedirectToAction(nameof(Index));
+
+        }
+
+
+        //Get: Expressions/Delete
+        public async Task<IActionResult> Delete(int id)
+        {
+            var ExpressionDetails = await _service.GetByIdAsync(id);
+            if (ExpressionDetails == null) return View("NotFound");
+            return View(ExpressionDetails);
+        }
+
+        //POST: Expressions/TakeDataAndEdit
+        [HttpPost]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var ExpressionDetails = await _service.GetByIdAsync(id);
+            if (ExpressionDetails == null) return View("NotFound");
+
+            await _service.DeleteAsync(id);
             return RedirectToAction(nameof(Index));
 
         }
