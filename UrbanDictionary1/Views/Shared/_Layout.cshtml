@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - UrbanDictionary1</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/UrbanDictionary1.styles.css" asp-append-version="true" />
+</head>
+<body>
+    <div class="thebody">
+        <header class="theheader">
+            <a asp-area="" asp-controller="Expressions" asp-action="Index"><img src="~/Images/logo.svg" class="logo" alt="logo" /></a>
+            <form id="search-form" asp-controller="Expressions" asp-action="Index">
+                <input class="search-input" type="search" placeholder="Caută...">
+                <button type="submit" class="search-button">
+                    <img src="Images/search.svg">
+                </button>
+            </form>
+            <div class="nav-menu">
+                <a class="nav-button home-button" asp-controller="Expressions" asp-action="Index">Acasă</a>
+                <a class="menu-place nav-button"><span class="menu-icon">&#9776;</span></a>
+                <div class="dropdown" id="thedropdown">
+                    <a href="" class="dropdown-content">Acasă</a>
+                    <a href="" class="dropdown-content">Acasă</a>
+                    <a href="" class="dropdown-content">Acasă</a>
+                </div>
+            </div>
+        </header>
+          @RenderBody()
+        <footer class="thefooter">
+            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+        </footer>
+    </div>
+
+    <script src="~/js/script.js" asp-append-version="true"></script>
+    
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
