@@ -1,11 +1,12 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Cryptography.X509Certificates;
+using UrbanDictionary1.Areas.Identity.Data;
 using UrbanDictionary1.Models;
 
 namespace UrbanDictionary1.Data
 {
-    public class AppDbContext : IdentityDbContext
+    public class AppDbContext : IdentityDbContext<ApplicationUser>
     {
         public AppDbContext(
             DbContextOptions<AppDbContext> options) 
@@ -14,5 +15,8 @@ namespace UrbanDictionary1.Data
             
         }
         public DbSet<Expression> Expressions { get; set; }
+
+        
+        
     }
 }

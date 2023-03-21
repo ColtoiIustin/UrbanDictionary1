@@ -14,7 +14,7 @@
                
                 <div class="expression-card">
                     <div class="first-row">
-                        <div class="expression"> @Html.DisplayNameFor(model => model.Name)</div>
+                        <div class="expression"> @Html.DisplayFor(modelitem => item.Name)</div>
                         <a asp-controller="Expressions" asp-action="Index" class="share"><img class="share-icon" src="~/Images/share.svg" /></a>
                     </div>
                     <div class="explication">@Html.DisplayFor(modelItem => item.Explication) </div>

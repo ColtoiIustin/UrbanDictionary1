@@ -26,10 +26,23 @@ namespace UrbanDictionary1.Data.Services
             await _context.SaveChangesAsync();
         }
 
+        public async Task<IEnumerable<Expression>> GetAllBySearchAsync(string searchString)
+        {
+            var expressions = from e in _context.Expressions
+                         select e;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                expressions = expressions.Where(s => s.Name!.Contains(searchString.Trim()));
+            }
+            var result = await expressions.ToListAsync();
+            return (result);
+        }
+
         public async Task<IEnumerable<Expression>> GetAllAsync()
         {
-            var result=await _context.Expressions.ToListAsync();
-            return(result);
+            var result = await _context.Expressions.ToListAsync();
+            return (result);
         }
 
         public async Task<Expression> GetByIdAsync(int id)

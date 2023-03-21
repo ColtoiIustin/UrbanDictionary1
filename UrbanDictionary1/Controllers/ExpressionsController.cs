@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Drawing.Text;
 using UrbanDictionary1.Data;
@@ -22,7 +23,17 @@ namespace UrbanDictionary1.Controllers
             var allExpressions = await _service.GetAllAsync();
             return View(allExpressions);
         }
+
         
+        //POST: Expressions/Index
+        [HttpPost]
+        public async Task<IActionResult> Index(string id)
+        {
+            var allExpressions = await _service.GetAllBySearchAsync(id);
+            return View(allExpressions);
+        }
+
+
         //Get: Expressions/Create
         public IActionResult Create()
         {
@@ -33,14 +44,14 @@ namespace UrbanDictionary1.Controllers
         [HttpPost]
         public async Task<IActionResult> TakeDataAndCreate([Bind("Name,Explication,Example1,Author,Likes,Dislikes")] Expression expression)
         {
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return View(expression);
             }
-            
+
             await _service.AddAsync(expression);
             return RedirectToAction(nameof(Index));
-            
+
         }
 
         //Get Expressions/Details/1
@@ -63,7 +74,7 @@ namespace UrbanDictionary1.Controllers
 
         //POST: Expressions/TakeDataAndEdit
         [HttpPost]
-        public async Task<IActionResult> EditConfirmed(int id,[Bind("Id,Name,Explication,Example1,CreationDate,Author,Likes,Dislikes")] Expression expression)
+        public async Task<IActionResult> EditConfirmed(int id, [Bind("Id,Name,Explication,Example1,CreationDate,Author,Likes,Dislikes")] Expression expression)
         {
             if (!ModelState.IsValid)
             {

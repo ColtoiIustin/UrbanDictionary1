@@ -1,7 +1,10 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 
 using UrbanDictionary1.Data;
 using UrbanDictionary1.Data.Services;
+using Microsoft.AspNetCore.Identity;
+using UrbanDictionary1.Areas.Identity.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,9 +14,14 @@ builder.Services.AddControllersWithViews();
 // DbContext service
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnectionString")));
 
+builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddEntityFrameworkStores<AppDbContext>();
+
 //Services configuration
 builder.Services.AddScoped<IExpressionsService, ExpressionsService>();
 
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(o => o.LoginPath="/Identity/Account/Login");
 
 var app = builder.Build();
 
@@ -30,10 +38,14 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
+
+app.MapRazorPages();
 
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Expressions}/{action=Index}/{id?}");
+
 
 app.Run();
