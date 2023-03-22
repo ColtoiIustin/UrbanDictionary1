@@ -87,7 +87,8 @@ namespace UrbanDictionary1.Controllers
         }
 
 
-        //Get: Expressions/Delete
+        //Get: Expressions/Delete/1
+       
         public async Task<IActionResult> Delete(int id)
         {
             var ExpressionDetails = await _service.GetByIdAsync(id);
@@ -95,8 +96,8 @@ namespace UrbanDictionary1.Controllers
             return View(ExpressionDetails);
         }
 
-        //POST: Expressions/TakeDataAndEdit
         [HttpPost]
+        
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var ExpressionDetails = await _service.GetByIdAsync(id);
