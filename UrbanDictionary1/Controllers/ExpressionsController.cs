@@ -46,7 +46,7 @@ namespace UrbanDictionary1.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View(expression);
+                return View("Create",expression);
             }
 
             await _service.AddAsync(expression);

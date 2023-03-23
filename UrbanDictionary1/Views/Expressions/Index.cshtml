@@ -11,53 +11,69 @@
 @inject SignInManager<ApplicationUser> SignInManager
 
 
-
 <div class="container">
     <div class="content">
         <div class="expressions-list">
-
             @foreach (var item in Model)
             {
-
-               
-                <div class="expression-card">
-                    <div class="first-row">
-                        <div class="expression"> @Html.DisplayFor(modelitem => item.Name)</div>
+            <div class="expression-card">
+                <div class="first-row">
+                        <div class="expression">@Html.DisplayFor(modelitem => item.Name)</div>
                         <a asp-controller="Expressions" asp-action="Index" class="share"><img class="share-icon" src="~/Images/share.svg" /></a>
                     </div>
-                    <div class="explication">@Html.DisplayFor(modelItem => item.Explication) </div>
+                    <div class="explication">@Html.DisplayFor(modelItem => item.Explication)</div>
                     <div class="example">@Html.DisplayFor(modelItem => item.Example1)</div>
-                    <div class="card-info">
-                        adăugat de
+                <div class="card-info">
+                    adăugat de
                         <span class="author">@Html.DisplayFor(modelItem => item.Author)</span>
-                        pe
+                    pe
                         <span class="date">@Html.DisplayFor(modelItem => item.CreationDate)</span>
-                    </div>
-                    <div class="last-row">
-                        <div class="likes-system">
+                </div>
+                <div class="last-row">
+                    <div class="likes-system">
                             <a class="like-part" asp-controller="Expressions" asp-action="Index">
-                                <img class="like-icon" src="~/Images/like.svg" />
+                                <img src="~/Images/like.svg" />
                                 <span class="likes">@Html.DisplayFor(modelItem => item.Likes)</span>
-                            </a>
-                            <a class="dislike-part" asp-controller="Expressions" asp-action="Index">
-                                <img class="dislike-icon" src="~/Images/dislike.svg" />
+                        </a>
+                        <a class="dislike-part" asp-controller="Expressions" asp-action="Index">
+                                <img src="~/Images/dislike.svg" />
                                 <span class="dislikes">@Html.DisplayFor(modelItem => item.Dislikes)</span>
-                            </a>
-                        </div>
-                        <a asp-controller="Expressions" asp-action="Index" class="report"><img class="report-icon" src="~/Images/report.svg" /></a>
+                        </a>
                     </div>
+                        <a asp-controller="Expressions" asp-action="Index" class="report"><img src="~/Images/report.svg" /></a>
+                </div>
                     <a asp-controller="Expressions" asp-action="Details" asp-route-id="@item.Id">Details</a>
                     <a asp-controller="Expressions" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
                     <a asp-controller="Expressions" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                </div>
-                
+            </div>
+
             }
         </div>
-            
     </div>
-
     <div class="sidebar">
+        <div class="expression-day">
+            <h2>Expresia zilei</h2>
+            <div class="expression-card">
+                <div class="first-row">
+                    <div class="expression">EXPRESIE 5</div>
+                    <a href="" class="share"><img src="~/Images/share.svg" /></a>
+                </div>
+                <div class="explication">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. </div>
+                <div class="example">Persoana: Am folosit o expresie. Îți place?</div>
+                <div class="card-info">
+                    adăugat de
+                    <span class="author">Iustin</span>
+                    pe
+                    <span class="date">16.03.2023</span>
+                </div>
+            </div>
+        </div>
+        <div class="add-expression">
+            <h2>Poți contribui și tu la acest dicționar</h2>
+            <a asp-controller="Expressions" asp-action="Create" class="add-button">Adaugă o expresie</a>
+        </div>
     </div>
 </div>
+
 
 

@@ -4,38 +4,44 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - UrbanDictionary1</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <!--<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" /> -->
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/UrbanDictionary1.styles.css" asp-append-version="true" />
+    <!--<link rel="stylesheet" href="~/UrbanDictionary1.styles.css" asp-append-version="true" /> -->
 </head>
 <body>
     <div class="thebody">
         <header class="theheader">
-            <a asp-area="" asp-controller="Expressions" asp-action="Index"><img src="~/Images/logo.svg" class="logo" alt="logo" /></a>
-            <form asp-action="Index"  id="search-form">
+            <div class="wrapper">
+                <div class="logo">
+                     <a asp-area="" asp-controller="Expressions" asp-action="Index"><img src="~/Images/logo.svg" class="logo" alt="logo" /></a>
+                </div>
+                <div class="navbar">
+                    <div class="close-nav"><button>X</button></div>
+                    <nav>
+                        <ul>
+                            <li><a asp-controller="Expressions" asp-action="Index">Acasă</a></li>
+                            <li><a asp-controller="Expressions" asp-action="Create">Adaugă</a></li>
+                            <li><a href="/src/login.html">Autentificare</a></li>
+                            <li><a href="/src/contact.html">Contact</a></li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="menu-bar">
+                    <button>&#9776;</button>
+                </div>
+                <form asp-action="Index" id="search-form" >
                 <input name="searchString" class="search-input" type="search" placeholder="Caută...">
                 <button type="submit" class="search-button">
-                    <img src="Images/search.svg">
+                    <img src="~/Images/search.svg">
                 </button>
-            </form>
-            <div class="nav-menu">
-                <a class="nav-button home-button" asp-controller="Expressions" asp-action="Index">Acasă</a>
-                <a class="menu-place nav-button"><span class="menu-icon">&#9776;</span></a>
-                <div class="dropdown" id="thedropdown">
-                    <a href="" class="dropdown-content">Acasă</a>
-                    <a href="" class="dropdown-content">Acasă</a>
-                    <a href="" class="dropdown-content">Acasă</a>
-                </div>
-                <div class="col-5">
-                    <div class="float-end">
-                        <partial name="_LoginPartial" />
-                    </div>
-                </div>
+                </form>
+                <partial name="_LoginPartial" />
+                
             </div>
         </header>
           @RenderBody()
         <footer class="thefooter">
-            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+            <div class="info">2023 * Dicționar Urban - still working on it</div>
         </footer>
     </div>
     

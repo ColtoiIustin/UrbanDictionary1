@@ -79,9 +79,11 @@ namespace UrbanDictionary1.Areas.Identity.Pages.Account
             /// </summary>
             /// 
 
+
             [Required]
             [Display(Name = "Username")]
             public string Username { get; set; }
+
 
             [Required]
             [EmailAddress]

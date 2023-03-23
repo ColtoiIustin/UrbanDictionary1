@@ -4,51 +4,64 @@
     ViewData["Title"] = "Adauga Expresie";
 }
 
-<h4>Expression</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="TakeDataAndCreate">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
+<div class="container">
+    <div class="content">
+        <div class="add-page">
+            <h2>ADAUGĂ O EXPRESIE</h2>
+            <form asp-action="TakeDataAndCreate" id="the-form" class="add-form">
+                <div asp-validation-summary="ModelOnly" ></div>
+                <label asp-for="Name"><b>Expresie</b></label>
+                <textarea asp-for="Name"  placeholder="Introdu expresia" rows="1" cols="20" ></textarea>
                 <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Explication" class="control-label"></label>
-                <input asp-for="Explication" class="form-control" />
-                <span asp-validation-for="Explication" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Example1" class="control-label"></label>
-                <input asp-for="Example1" class="form-control" />
-                <span asp-validation-for="Example1" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Author" class="control-label"></label>
-                <input asp-for="Author" class="form-control" />
-                <span asp-validation-for="Author" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Likes" class="control-label"></label>
-                <input asp-for="Likes" class="form-control" />
-                <span asp-validation-for="Likes" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Dislikes" class="control-label"></label>
-                <input asp-for="Dislikes" class="form-control" />
-                <span asp-validation-for="Dislikes" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
-</div>
 
-<div>
-    <a asp-action="Index">Inapoi la lista</a>
+                <label asp-for="Explication"><b>Explicație</b></label>
+                <textarea asp-for="Explication"   placeholder="Introdu explicația" rows="2" cols="50" ></textarea>
+                <span asp-validation-for="Explication" class="text-danger"></span>
+
+                <label asp-for="Example1"><b>Exemplu</b></label>
+                <textarea asp-for="Example1"   placeholder="Introdu un exemplul de folosire" rows="3" cols="50" ></textarea>
+                <span asp-validation-for="Example1" class="text-danger"></span>
+
+                <label asp-for="Author"><b>Autor</b></label>
+                <textarea asp-for="Author"  placeholder="Introdu expresia" rows="1" cols="20" ></textarea>
+                <span asp-validation-for="Author" class="text-danger"></span>
+
+                <label asp-for="Likes"><b>Likes</b></label>
+                <textarea asp-for="Likes"  placeholder="Introdu expresia" rows="1" cols="20" ></textarea>
+                <span asp-validation-for="Likes" class="text-danger"></span>
+
+                <label asp-for="Dislikes"><b>Dislikes</b></label>
+                <textarea asp-for="Dislikes" placeholder="Introdu expresia" rows="1" cols="20" ></textarea>
+                <span asp-validation-for="Dislikes" class="text-danger"></span>
+
+                <button type="submit">Trimite</button>
+           
+            </form>
+        </div>
+    </div>
+    <div class="sidebar">
+        <div class="expression-day">
+            <h2>Expresia zilei</h2>
+            <div class="expression-card">
+                <div class="first-row">
+                    <div class="expression">EXPRESIE</div>
+                    <a href="" class="share"><img src="~/Images/share.svg" /></a>
+                </div>
+                <div class="explication">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. </div>
+                <div class="example">Persoana: Am folosit o expresie. Îți place?</div>
+                <div class="card-info">
+                    adăugat de
+                    <span class="author">Iustin</span>
+                    pe
+                    <span class="date">16.03.2023</span>
+                </div>
+            </div>
+        </div>
+        <div class="add-expression">
+            <h2>Poți contribui și tu la acest dicționar</h2>
+            <a asp-controller="Expressions" asp-action="Create" class="add-button">Adaugă o expresie</a>
+        </div>
+    </div>
 </div>
 
 @section Scripts {
