@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Security.Cryptography.X509Certificates;
 using UrbanDictionary1.Areas.Identity.Data;
 using UrbanDictionary1.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace UrbanDictionary1.Data
 {

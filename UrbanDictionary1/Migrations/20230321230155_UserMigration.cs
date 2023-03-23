@@ -72,7 +72,8 @@ namespace UrbanDictionary1.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "AspNetUserClaims",
+                name: "AspNetUserClaims" +
+                "",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)

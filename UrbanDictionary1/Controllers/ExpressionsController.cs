@@ -27,9 +27,9 @@ namespace UrbanDictionary1.Controllers
         
         //POST: Expressions/Index
         [HttpPost]
-        public async Task<IActionResult> Index(string id)
+        public async Task<IActionResult> Index(string searchString)
         {
-            var allExpressions = await _service.GetAllBySearchAsync(id);
+            var allExpressions = await _service.GetAllBySearchAsync(searchString);
             return View(allExpressions);
         }
 

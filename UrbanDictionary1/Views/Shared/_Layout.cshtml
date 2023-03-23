@@ -13,7 +13,7 @@
         <header class="theheader">
             <a asp-area="" asp-controller="Expressions" asp-action="Index"><img src="~/Images/logo.svg" class="logo" alt="logo" /></a>
             <form asp-action="Index"  id="search-form">
-                <input name="id" class="search-input" type="search" placeholder="Caută...">
+                <input name="searchString" class="search-input" type="search" placeholder="Caută...">
                 <button type="submit" class="search-button">
                     <img src="Images/search.svg">
                 </button>
@@ -25,6 +25,11 @@
                     <a href="" class="dropdown-content">Acasă</a>
                     <a href="" class="dropdown-content">Acasă</a>
                     <a href="" class="dropdown-content">Acasă</a>
+                </div>
+                <div class="col-5">
+                    <div class="float-end">
+                        <partial name="_LoginPartial" />
+                    </div>
                 </div>
             </div>
         </header>

@@ -1,7 +1,15 @@
-﻿@model IEnumerable<UrbanDictionary1.Models.Expression>
+﻿@using Microsoft.AspNetCore.Identity;
+@using UrbanDictionary1.Areas.Identity.Data;
+
+@model IEnumerable<UrbanDictionary1.Models.Expression>
+
 @{
     ViewData["Title"] = "Expresii";
 }
+
+@inject UserManager<ApplicationUser> UserManager
+@inject SignInManager<ApplicationUser> SignInManager
+
 
 
 <div class="container">
@@ -45,6 +53,7 @@
                 
             }
         </div>
+            
     </div>
 
     <div class="sidebar">
