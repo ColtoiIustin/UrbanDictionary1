@@ -10,6 +10,11 @@ namespace UrbanDictionary1.Data.Services
         Task AddAsync(Expression expression);
         Task<Expression> UpdateAsync(int id, Expression newExpression);
         Task DeleteAsync(int id);
+        Task<IEnumerable<Expression>> GetAllUnverifiedAsync();
+        Task ExpressionApprovedAsync(int id);
+        Task ExpressionRejectedAsync(int id);
+
+
 
     }
 }

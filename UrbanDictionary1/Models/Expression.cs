@@ -44,6 +44,7 @@ namespace UrbanDictionary1.Models
         [DataType(DataType.MultilineText)]
         public int Dislikes { get; set; }
 
+        public bool IsVerified { get; set; }
 
     }
 }

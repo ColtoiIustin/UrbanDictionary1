@@ -15,6 +15,7 @@ namespace UrbanDictionary1.Data.Services
         public async Task AddAsync(Expression expression)
         {
             expression.CreationDate = DateTime.Today.ToString("dd/MM/yyyy");
+            expression.IsVerified = false;
             await _context.Expressions.AddAsync(expression);
             await _context.SaveChangesAsync();
         }
@@ -26,10 +27,11 @@ namespace UrbanDictionary1.Data.Services
             await _context.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<Expression>> GetAllBySearchAsync(string searchString)
+        public async Task<IEnumerable<Expression>> GetAllBySearchAsync(string searchString) 
         {
             var expressions = from e in _context.Expressions
-                         select e;
+                              where e.IsVerified == true
+                              select e;
 
             if (!String.IsNullOrEmpty(searchString))
             {
@@ -41,7 +43,10 @@ namespace UrbanDictionary1.Data.Services
 
         public async Task<IEnumerable<Expression>> GetAllAsync()
         {
-            var result = await _context.Expressions.ToListAsync();
+            var expressions = from e in _context.Expressions
+                              where e.IsVerified == true
+                              select e;
+            var result = await expressions.ToListAsync();
             return (result);
         }
 
@@ -58,6 +63,31 @@ namespace UrbanDictionary1.Data.Services
             return(newExpression);
         }
 
+
+        public async Task<IEnumerable<Expression>> GetAllUnverifiedAsync()
+        {
+            var expressions = from e in _context.Expressions
+                              where e.IsVerified == false
+                              select e;
+
+            var result = await expressions.ToListAsync();
+            return (result);
+        }
+
+        public async Task ExpressionApprovedAsync(int id)
+        {
+            var result = await _context.Expressions.FirstOrDefaultAsync(x => x.Id == id);
+            result.IsVerified = true;
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task ExpressionRejectedAsync(int id)
+        {
+            
+            var result = await _context.Expressions.FirstOrDefaultAsync(x => x.Id == id);
+            _context.Expressions.Remove(result);
+            await _context.SaveChangesAsync();
+        }
 
     }
 }

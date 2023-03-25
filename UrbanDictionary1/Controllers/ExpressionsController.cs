@@ -82,7 +82,7 @@ namespace UrbanDictionary1.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View(expression);
+                return View("Edit" , expression);
             }
 
             await _service.UpdateAsync(id, expression);
@@ -112,6 +112,33 @@ namespace UrbanDictionary1.Controllers
 
         }
 
+        //Expressions/UnverifiedList
+        public async Task<IActionResult> UnverifiedList()
+        {
+            var allExpressions = await _service.GetAllUnverifiedAsync();
+            return View(allExpressions);
+        }
+
+
+        public async Task<IActionResult> ApproveExpression(int id)
+        {
+            var ExpressionDetails = await _service.GetByIdAsync(id);
+            if (ExpressionDetails == null) return View("NotFound");
+
+            await _service.ExpressionApprovedAsync(id);
+            return RedirectToAction(nameof(UnverifiedList));
+
+        }
+
+        public async Task<IActionResult> RejectExpression(int id)
+        {
+            var ExpressionDetails = await _service.GetByIdAsync(id);
+            if (ExpressionDetails == null) return View("NotFound");
+
+            await _service.ExpressionRejectedAsync(id);
+            return RedirectToAction(nameof(UnverifiedList));
+
+        }
 
 
     }
