@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using UrbanDictionary1.Areas.Identity.Data;
 
 namespace UrbanDictionary1.Models
 {

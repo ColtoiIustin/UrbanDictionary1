@@ -5,6 +5,8 @@ using UrbanDictionary1.Data;
 using UrbanDictionary1.Data.Services;
 using Microsoft.AspNetCore.Identity;
 using UrbanDictionary1.Areas.Identity.Data;
+using UrbanDictionary1;
+using Microsoft.VisualBasic;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,12 +17,24 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnectionString")));
 
 builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
-    .AddEntityFrameworkStores<AppDbContext>();
+    .AddRoles<IdentityRole>()
+    .AddEntityFrameworkStores<AppDbContext>()
+    .AddErrorDescriber<CustomIdentityErrorDescriber>();
+#region Authorization
+
+AddAuthorizationPolicies();
+
+#endregion
+
 
 builder.Services.Configure<IdentityOptions>(options =>
 {
     
     options.User.RequireUniqueEmail = true;
+    options.Password.RequiredLength = 5;
+    options.Password.RequireNonAlphanumeric= false;
+    
+    
     
 });
 
@@ -55,3 +69,12 @@ app.MapControllerRoute(
 
 
 app.Run();
+
+void AddAuthorizationPolicies()
+{
+   
+    builder.Services.AddAuthorization(options =>
+    {
+        options.AddPolicy("RequireAdmx", policy => policy.RequireRole("Admx"));
+    });
+}

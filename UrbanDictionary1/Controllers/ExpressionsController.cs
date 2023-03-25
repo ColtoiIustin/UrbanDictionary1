@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Drawing.Text;
@@ -24,7 +25,7 @@ namespace UrbanDictionary1.Controllers
             return View(allExpressions);
         }
 
-        
+                   
         //POST: Expressions/Index
         [HttpPost]
         public async Task<IActionResult> Index(string searchString)
@@ -35,6 +36,7 @@ namespace UrbanDictionary1.Controllers
 
 
         //Get: Expressions/Create
+        [Authorize]
         public IActionResult Create()
         {
             return View();
@@ -42,6 +44,7 @@ namespace UrbanDictionary1.Controllers
 
         //POST: Expressions/TakeDataAndCreate
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> TakeDataAndCreate([Bind("Name,Explication,Example1,Author,Likes,Dislikes")] Expression expression)
         {
             if (!ModelState.IsValid)
@@ -55,7 +58,7 @@ namespace UrbanDictionary1.Controllers
         }
 
         //Get Expressions/Details/1
-
+        [Authorize(Roles ="Admx")]
         public async Task<IActionResult> Details(int id)
         {
             var ExpressionDetails = await _service.GetByIdAsync(id);
@@ -63,7 +66,7 @@ namespace UrbanDictionary1.Controllers
             return View(ExpressionDetails);
         }
 
-
+        [Authorize(Roles = "Admx")]
         //Get: Expressions/Edit
         public async Task<IActionResult> Edit(int id)
         {
@@ -74,6 +77,7 @@ namespace UrbanDictionary1.Controllers
 
         //POST: Expressions/TakeDataAndEdit
         [HttpPost]
+        [Authorize(Roles = "Admx")]
         public async Task<IActionResult> EditConfirmed(int id, [Bind("Id,Name,Explication,Example1,CreationDate,Author,Likes,Dislikes")] Expression expression)
         {
             if (!ModelState.IsValid)
@@ -88,7 +92,7 @@ namespace UrbanDictionary1.Controllers
 
 
         //Get: Expressions/Delete/1
-       
+        [Authorize(Roles = "Admx")]
         public async Task<IActionResult> Delete(int id)
         {
             var ExpressionDetails = await _service.GetByIdAsync(id);
@@ -97,7 +101,7 @@ namespace UrbanDictionary1.Controllers
         }
 
         [HttpPost]
-        
+        [Authorize(Roles = "Admx")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var ExpressionDetails = await _service.GetByIdAsync(id);

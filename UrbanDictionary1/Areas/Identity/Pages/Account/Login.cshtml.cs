@@ -111,12 +111,20 @@ namespace UrbanDictionary1.Areas.Identity.Pages.Account
 
             if (ModelState.IsValid)
             {
-                // This doesn't count login failures towards account lockout
-                // To enable password failures to trigger account lockout, set lockoutOnFailure: true
-                var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
-                if (result.Succeeded)
+                
+                var user = await _signInManager.UserManager.FindByEmailAsync(Input.Email);
+                if(user==null)
                 {
-                    
+                    ModelState.AddModelError(string.Empty, "Email sau parola gresite");
+                    return Page();
+                }
+                var result = await _signInManager.CheckPasswordSignInAsync(user, Input.Password, false);
+
+
+                 if (result.Succeeded)
+                {
+
+                    await _signInManager.SignInWithClaimsAsync(user, Input.RememberMe, new Claim[] { new Claim("amr", "pwd") });
                     _logger.LogInformation("User logged in.");
                     return LocalRedirect(returnUrl);
                 }
@@ -131,7 +139,7 @@ namespace UrbanDictionary1.Areas.Identity.Pages.Account
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                    ModelState.AddModelError(string.Empty, "Email sau parola gresite");
                     return Page();
                 }
             }

@@ -1,8 +1,9 @@
-﻿@using Microsoft.AspNetCore.Identity;
+﻿@using Microsoft.AspNetCore.Authorization;
+@using Microsoft.AspNetCore.Identity;
 @using UrbanDictionary1.Areas.Identity.Data;
 
 @model IEnumerable<UrbanDictionary1.Models.Expression>
-
+@inject IAuthorizationService AuthorizationService
 @{
     ViewData["Title"] = "Expresii";
 }
@@ -42,10 +43,13 @@
                     </div>
                         <a asp-controller="Expressions" asp-action="Index" class="report"><img src="~/Images/report.svg" /></a>
                 </div>
-                    <a asp-controller="Expressions" asp-action="Details" asp-route-id="@item.Id">Details</a>
-                    <a asp-controller="Expressions" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
-                    <a asp-controller="Expressions" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </div>
+                    @if ((await AuthorizationService.AuthorizeAsync(User, "RequireAdmx")).Succeeded)
+                    {
+                        <a asp-controller="Expressions" asp-action="Details" asp-route-id="@item.Id">Details</a>
+                        <a asp-controller="Expressions" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                        <a asp-controller="Expressions" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    }
+                </div>
 
             }
         </div>
