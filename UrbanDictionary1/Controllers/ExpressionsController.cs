@@ -12,15 +12,26 @@ namespace UrbanDictionary1.Controllers
     public class ExpressionsController : Controller
     {
         private readonly IExpressionsService _service;
+        private readonly ISidebarService _sidebar;
+        
 
-        public ExpressionsController(IExpressionsService service)
+        public ExpressionsController(IExpressionsService service, ISidebarService sidebar)
         {
             _service = service;
+            _sidebar = sidebar;
+            
         }
 
+        
         //Expressions/Index
         public async Task<IActionResult> Index()
         {
+            ViewBag.Name = _sidebar.NameOfTheDay();
+            ViewBag.Description = _sidebar.DescriptionOfTheDay();
+            ViewBag.Example = _sidebar.ExampleOfTheDay();
+            ViewBag.Author = _sidebar.AuthorOfTheDay();
+            ViewBag.Date = _sidebar.DateOfTheDay();
+       
             var allExpressions = await _service.GetAllAsync();
             return View(allExpressions);
         }
@@ -39,6 +50,11 @@ namespace UrbanDictionary1.Controllers
         [Authorize]
         public IActionResult Create()
         {
+            ViewBag.Name = _sidebar.NameOfTheDay();
+            ViewBag.Description = _sidebar.DescriptionOfTheDay();
+            ViewBag.Example = _sidebar.ExampleOfTheDay();
+            ViewBag.Author = _sidebar.AuthorOfTheDay();
+            ViewBag.Date = _sidebar.DateOfTheDay();
             return View();
         }
 

@@ -44,19 +44,20 @@
             <h2>Expresia zilei</h2>
             <div class="expression-card">
                 <div class="first-row">
-                    <div class="expression">EXPRESIE</div>
+                    <div class="expression">@ViewBag.Name</div>
                     <a href="" class="share"><img src="~/Images/share.svg" /></a>
                 </div>
-                <div class="explication">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. </div>
-                <div class="example">Persoana: Am folosit o expresie. Îți place?</div>
+                <div class="explication">@ViewBag.Description</div>
+                <div class="example">@ViewBag.Example</div>
                 <div class="card-info">
                     adăugat de
-                    <span class="author">Iustin</span>
+                    <span class="author">@ViewBag.Author</span>
                     pe
-                    <span class="date">16.03.2023</span>
+                    <span class="date">@ViewBag.Date</span>
                 </div>
             </div>
         </div>
+
         <div class="add-expression">
             <h2>Poți contribui și tu la acest dicționar</h2>
             <a asp-controller="Expressions" asp-action="Create" class="add-button">Adaugă o expresie</a>

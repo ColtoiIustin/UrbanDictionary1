@@ -14,7 +14,7 @@ namespace UrbanDictionary1.Data.Services
         }
         public async Task AddAsync(Expression expression)
         {
-            expression.CreationDate = DateTime.Today.ToString("dd/MM/yyyy");
+            expression.CreationDate = DateTime.Today.ToString("dd.MM.yyyy");
             expression.IsVerified = false;
             await _context.Expressions.AddAsync(expression);
             await _context.SaveChangesAsync();
