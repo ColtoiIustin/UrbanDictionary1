@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Drawing.Text;
+using UrbanDictionary1.Areas.Identity.Data;
 using UrbanDictionary1.Data;
 using UrbanDictionary1.Data.Services;
 using UrbanDictionary1.Models;
@@ -13,12 +14,14 @@ namespace UrbanDictionary1.Controllers
     {
         private readonly IExpressionsService _service;
         private readonly ISidebarService _sidebar;
-        
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public ExpressionsController(IExpressionsService service, ISidebarService sidebar)
+
+        public ExpressionsController(IExpressionsService service, ISidebarService sidebar, UserManager<ApplicationUser> userManager)
         {
             _service = service;
             _sidebar = sidebar;
+            _userManager = userManager;
             
         }
 
@@ -41,6 +44,12 @@ namespace UrbanDictionary1.Controllers
         [HttpPost]
         public async Task<IActionResult> Index(string searchString)
         {
+            ViewBag.Name = _sidebar.NameOfTheDay();
+            ViewBag.Description = _sidebar.DescriptionOfTheDay();
+            ViewBag.Example = _sidebar.ExampleOfTheDay();
+            ViewBag.Author = _sidebar.AuthorOfTheDay();
+            ViewBag.Date = _sidebar.DateOfTheDay();
+
             var allExpressions = await _service.GetAllBySearchAsync(searchString);
             return View(allExpressions);
         }
@@ -61,13 +70,19 @@ namespace UrbanDictionary1.Controllers
         //POST: Expressions/TakeDataAndCreate
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> TakeDataAndCreate([Bind("Name,Explication,Example1,Author,Likes,Dislikes")] Expression expression)
+        public async Task<IActionResult> TakeDataAndCreate([Bind("Name,Explication,Example1,Likes,Dislikes")] Expression expression)
         {
+            ViewBag.Name = _sidebar.NameOfTheDay();
+            ViewBag.Description = _sidebar.DescriptionOfTheDay();
+            ViewBag.Example = _sidebar.ExampleOfTheDay();
+            ViewBag.Author = _sidebar.AuthorOfTheDay();
+            ViewBag.Date = _sidebar.DateOfTheDay();
+
             if (!ModelState.IsValid)
             {
                 return View("Create",expression);
             }
-
+            expression.Author = _userManager.GetUserName(User);
             await _service.AddAsync(expression);
             return RedirectToAction(nameof(Index));
 

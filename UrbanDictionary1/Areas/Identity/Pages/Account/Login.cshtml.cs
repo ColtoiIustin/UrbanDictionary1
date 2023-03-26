@@ -17,6 +17,8 @@ using Microsoft.Extensions.Logging;
 using UrbanDictionary1.Areas.Identity.Data;
 using System.Security.Claims;
 using UrbanDictionary1.Data.Services;
+using Microsoft.AspNetCore.Identity;
+
 
 namespace UrbanDictionary1.Areas.Identity.Pages.Account
 {
@@ -116,6 +118,7 @@ namespace UrbanDictionary1.Areas.Identity.Pages.Account
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
             returnUrl ??= Url.Content("~/");
+           
 
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
 

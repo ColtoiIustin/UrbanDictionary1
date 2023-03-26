@@ -30,7 +30,7 @@
                     <div class="example">@Html.DisplayFor(modelItem => item.Example1)</div>
                 <div class="card-info">
                     adăugat de
-                        <span class="author">@Html.DisplayFor(modelItem => item.Author)</span>
+                        <a asp-controller="Expressions" asp-action="Create"><span class="author">@Html.DisplayFor(modelItem => item.Author)</span> </a>
                     pe
                         <span class="date">@Html.DisplayFor(modelItem => item.CreationDate)</span>
                 </div>
@@ -66,7 +66,7 @@
                 <div class="example">@ViewBag.Example</div>
                 <div class="card-info">
                     adăugat de
-                    <span class="author">@ViewBag.Author</span>
+                    <a asp-controller="Expressions" asp-action="Create"><span  class="author">@ViewBag.Author</span> </a>
                     pe
                     <span class="date">@ViewBag.Date</span>
                 </div>

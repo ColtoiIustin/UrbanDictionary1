@@ -123,7 +123,7 @@ namespace UrbanDictionary1.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             
             if (ModelState.IsValid)
-            {
+            {   
                 var user = CreateUser();
 
                 await _userStore.SetUserNameAsync(user, Input.Username, CancellationToken.None);

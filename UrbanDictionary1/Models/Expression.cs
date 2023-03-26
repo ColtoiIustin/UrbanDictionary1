@@ -28,10 +28,6 @@ namespace UrbanDictionary1.Models
 
         public string? CreationDate { get; set; }
 
-
-        [Required(ErrorMessage = "Author is required")]
-        [DisplayName("Author")]
-        [DataType(DataType.MultilineText)]
         public string? Author { get; set; }
 
 

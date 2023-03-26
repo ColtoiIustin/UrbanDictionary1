@@ -1,16 +1,22 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ActionConstraints;
 using Microsoft.EntityFrameworkCore;
+using UrbanDictionary1.Areas.Identity.Data;
 using UrbanDictionary1.Models;
+using Microsoft.AspNetCore.Authorization;
+
 
 namespace UrbanDictionary1.Data.Services
 {
     public class ExpressionsService : IExpressionsService
     {
         private readonly AppDbContext _context;
-        public ExpressionsService(AppDbContext context)
+        private readonly UserManager<ApplicationUser> _userManager;
+        public ExpressionsService(AppDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager; 
         }
         public async Task AddAsync(Expression expression)
         {
