@@ -15,7 +15,10 @@
 <div class="container">
     <div class="content">
         <div class="expressions-list">
-            <a asp-controller="Expressions" asp-action="UnverifiedList" >Unverified List</a>
+            @if ((await AuthorizationService.AuthorizeAsync(User, "RequireAdmx")).Succeeded)
+                    {
+                         <a asp-controller="Expressions" asp-action="UnverifiedList" >Unverified List</a>
+                    }
             @foreach (var item in Model)
             {
             <div class="expression-card">

@@ -129,13 +129,14 @@ namespace UrbanDictionary1.Controllers
         }
 
         //Expressions/UnverifiedList
+        [Authorize(Roles = "Admx")]
         public async Task<IActionResult> UnverifiedList()
         {
             var allExpressions = await _service.GetAllUnverifiedAsync();
             return View(allExpressions);
         }
 
-
+        [Authorize(Roles = "Admx")]
         public async Task<IActionResult> ApproveExpression(int id)
         {
             var ExpressionDetails = await _service.GetByIdAsync(id);
@@ -146,6 +147,7 @@ namespace UrbanDictionary1.Controllers
 
         }
 
+        [Authorize(Roles = "Admx")]
         public async Task<IActionResult> RejectExpression(int id)
         {
             var ExpressionDetails = await _service.GetByIdAsync(id);

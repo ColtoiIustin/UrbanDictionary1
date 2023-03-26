@@ -34,8 +34,6 @@ builder.Services.Configure<IdentityOptions>(options =>
     options.Password.RequiredLength = 5;
     options.Password.RequireNonAlphanumeric= false;
     
-    
-    
 });
 
 //Services configuration

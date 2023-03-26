@@ -16,6 +16,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using UrbanDictionary1.Areas.Identity.Data;
 using System.Security.Claims;
+using UrbanDictionary1.Data.Services;
 
 namespace UrbanDictionary1.Areas.Identity.Pages.Account
 {
@@ -23,12 +24,15 @@ namespace UrbanDictionary1.Areas.Identity.Pages.Account
     {
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
+        private readonly ISidebarService _sidebar;
 
-        public LoginModel(SignInManager<ApplicationUser> signInManager, ILogger<LoginModel> logger)
+        public LoginModel(SignInManager<ApplicationUser> signInManager, ILogger<LoginModel> logger, ISidebarService sidebar)
         {
             _signInManager = signInManager;
             _logger = logger;
+            _sidebar = sidebar;
         }
+
 
         /// <summary>
         ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
@@ -88,6 +92,12 @@ namespace UrbanDictionary1.Areas.Identity.Pages.Account
 
         public async Task OnGetAsync(string returnUrl = null)
         {
+            ViewData["Name"] = _sidebar.NameOfTheDay();
+            ViewData["Description"] = _sidebar.DescriptionOfTheDay();
+            ViewData["Example"] = _sidebar.ExampleOfTheDay();
+            ViewData["Author"] = _sidebar.AuthorOfTheDay();
+            ViewData["Date"] = _sidebar.DateOfTheDay();
+
             if (!string.IsNullOrEmpty(ErrorMessage))
             {
                 ModelState.AddModelError(string.Empty, ErrorMessage);
