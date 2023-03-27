@@ -17,7 +17,7 @@ using Microsoft.Extensions.Logging;
 using UrbanDictionary1.Areas.Identity.Data;
 using System.Security.Claims;
 using UrbanDictionary1.Data.Services;
-using Microsoft.AspNetCore.Identity;
+
 
 
 namespace UrbanDictionary1.Areas.Identity.Pages.Account

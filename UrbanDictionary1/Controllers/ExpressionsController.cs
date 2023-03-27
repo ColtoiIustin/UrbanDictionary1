@@ -18,12 +18,12 @@ namespace UrbanDictionary1.Controllers
 
         private void SidebarViewBags()
         {
-            
             ViewBag.Name = _sidebar.NameOfTheDay();
             ViewBag.Description = _sidebar.DescriptionOfTheDay();
             ViewBag.Example = _sidebar.ExampleOfTheDay();
             ViewBag.Author = _sidebar.AuthorOfTheDay();
             ViewBag.Date = _sidebar.DateOfTheDay();
+
         }
 
         public ExpressionsController(IExpressionsService service, ISidebarService sidebar, UserManager<ApplicationUser> userManager)

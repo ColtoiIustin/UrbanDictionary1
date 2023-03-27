@@ -25,14 +25,13 @@ namespace UrbanDictionary1.Data.Services
                 var expressions = from e in _context.Expressions
                                   where (e.IsVerified == true && e.CreationDate == TheLastDate)
                                   select e;
-                if (expressions != null)
-                {
-                    var res = expressions.ToList();
+                var res = expressions.ToList();
 
-                    //result => expresia cu nr max de Likes
-                    var result = res.MaxBy(x => x.Likes);
+                //result => expresia cu nr max de Likes
+                var result = res.MaxBy(x => x.Likes);
+                if (result != null) 
                     return result;
-                }
+               
                 i++;
             }
            
