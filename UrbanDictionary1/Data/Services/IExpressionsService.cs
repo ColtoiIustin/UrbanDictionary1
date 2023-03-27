@@ -13,7 +13,8 @@ namespace UrbanDictionary1.Data.Services
         Task<IEnumerable<Expression>> GetAllUnverifiedAsync();
         Task ExpressionApprovedAsync(int id);
         Task ExpressionRejectedAsync(int id);
-
+        Task<IEnumerable<Expression>> GetAllAuthorExpressions(Expression ExpressionDetails);
+        Task<Expression> GetByAuthorAsync(string author);
 
 
     }

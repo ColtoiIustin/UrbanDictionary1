@@ -21,6 +21,7 @@ using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.CodeAnalysis.VisualBasic.Syntax;
 using Microsoft.Extensions.Logging;
 using UrbanDictionary1.Areas.Identity.Data;
+using UrbanDictionary1.Data.Services;
 
 namespace UrbanDictionary1.Areas.Identity.Pages.Account
 {
@@ -32,13 +33,15 @@ namespace UrbanDictionary1.Areas.Identity.Pages.Account
         private readonly IUserEmailStore<ApplicationUser> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+        private readonly ISidebarService _sidebar;
 
         public RegisterModel(
             UserManager<ApplicationUser> userManager,
             IUserStore<ApplicationUser> userStore,
             SignInManager<ApplicationUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            ISidebarService sidebar)
         {
             _userManager = userManager;
             _userStore = userStore;
@@ -46,6 +49,7 @@ namespace UrbanDictionary1.Areas.Identity.Pages.Account
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            _sidebar = sidebar;
         }
 
         /// <summary>
@@ -113,6 +117,13 @@ namespace UrbanDictionary1.Areas.Identity.Pages.Account
 
         public async Task OnGetAsync(string returnUrl = null)
         {
+
+            ViewData["Name"] = _sidebar.NameOfTheDay();
+            ViewData["Description"] = _sidebar.DescriptionOfTheDay();
+            ViewData["Example"] = _sidebar.ExampleOfTheDay();
+            ViewData["Author"] = _sidebar.AuthorOfTheDay();
+            ViewData["Date"] = _sidebar.DateOfTheDay();
+
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
         }

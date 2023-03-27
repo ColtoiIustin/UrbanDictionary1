@@ -67,6 +67,32 @@
             }
         </section>
     </div>
+
+
+    <div class="sidebar">
+        <div class="expression-day">
+            <h2>Expresia zilei</h2>
+            <div class="expression-card">
+                <div class="first-row">
+                    <div class="expression">@ViewBag.Name</div>
+                    <a href="" class="share"><img src="~/Images/share.svg" /></a>
+                </div>
+                <div class="explication">@ViewBag.Description</div>
+                <div class="example">@ViewBag.Example</div>
+                <div class="card-info">
+                    adăugat de
+                    <a asp-controller="Expressions" asp-action="AuthorExpressionsSidebar" asp-route-id="@ViewBag.Author"><span class="author">@ViewBag.Author</span> </a>
+                    pe
+                    <span class="date">@ViewBag.Date</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="add-expression">
+            <h2>Poți contribui și tu la acest dicționar</h2>
+            <a asp-controller="Expressions" asp-action="Create" class="add-button">Adaugă o expresie</a>
+        </div>
+    </div>
 </div>
 
 @section Scripts {

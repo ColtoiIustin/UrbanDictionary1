@@ -95,5 +95,21 @@ namespace UrbanDictionary1.Data.Services
             await _context.SaveChangesAsync();
         }
 
+        public async Task<IEnumerable<Expression>> GetAllAuthorExpressions(Expression ExpressionDetails)
+        {
+
+            var expressions = from e in _context.Expressions
+                              where (e.IsVerified == true && e.Author == ExpressionDetails.Author)
+                              select e;
+
+            var result = await expressions.ToListAsync();
+            return (result);
+        }
+
+        public async Task<Expression> GetByAuthorAsync(string author)
+        {
+            var result = await _context.Expressions.FirstOrDefaultAsync(x => x.Author == author);
+            return result;
+        }
     }
 }

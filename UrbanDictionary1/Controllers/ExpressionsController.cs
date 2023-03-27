@@ -16,6 +16,15 @@ namespace UrbanDictionary1.Controllers
         private readonly ISidebarService _sidebar;
         private readonly UserManager<ApplicationUser> _userManager;
 
+        private void SidebarViewBags()
+        {
+            
+            ViewBag.Name = _sidebar.NameOfTheDay();
+            ViewBag.Description = _sidebar.DescriptionOfTheDay();
+            ViewBag.Example = _sidebar.ExampleOfTheDay();
+            ViewBag.Author = _sidebar.AuthorOfTheDay();
+            ViewBag.Date = _sidebar.DateOfTheDay();
+        }
 
         public ExpressionsController(IExpressionsService service, ISidebarService sidebar, UserManager<ApplicationUser> userManager)
         {
@@ -29,12 +38,8 @@ namespace UrbanDictionary1.Controllers
         //Expressions/Index
         public async Task<IActionResult> Index()
         {
-            ViewBag.Name = _sidebar.NameOfTheDay();
-            ViewBag.Description = _sidebar.DescriptionOfTheDay();
-            ViewBag.Example = _sidebar.ExampleOfTheDay();
-            ViewBag.Author = _sidebar.AuthorOfTheDay();
-            ViewBag.Date = _sidebar.DateOfTheDay();
-       
+
+            SidebarViewBags();
             var allExpressions = await _service.GetAllAsync();
             return View(allExpressions);
         }
@@ -44,11 +49,7 @@ namespace UrbanDictionary1.Controllers
         [HttpPost]
         public async Task<IActionResult> Index(string searchString)
         {
-            ViewBag.Name = _sidebar.NameOfTheDay();
-            ViewBag.Description = _sidebar.DescriptionOfTheDay();
-            ViewBag.Example = _sidebar.ExampleOfTheDay();
-            ViewBag.Author = _sidebar.AuthorOfTheDay();
-            ViewBag.Date = _sidebar.DateOfTheDay();
+            SidebarViewBags();
 
             var allExpressions = await _service.GetAllBySearchAsync(searchString);
             return View(allExpressions);
@@ -59,11 +60,7 @@ namespace UrbanDictionary1.Controllers
         [Authorize]
         public IActionResult Create()
         {
-            ViewBag.Name = _sidebar.NameOfTheDay();
-            ViewBag.Description = _sidebar.DescriptionOfTheDay();
-            ViewBag.Example = _sidebar.ExampleOfTheDay();
-            ViewBag.Author = _sidebar.AuthorOfTheDay();
-            ViewBag.Date = _sidebar.DateOfTheDay();
+            SidebarViewBags();
             return View();
         }
 
@@ -72,11 +69,7 @@ namespace UrbanDictionary1.Controllers
         [Authorize]
         public async Task<IActionResult> TakeDataAndCreate([Bind("Name,Explication,Example1,Likes,Dislikes")] Expression expression)
         {
-            ViewBag.Name = _sidebar.NameOfTheDay();
-            ViewBag.Description = _sidebar.DescriptionOfTheDay();
-            ViewBag.Example = _sidebar.ExampleOfTheDay();
-            ViewBag.Author = _sidebar.AuthorOfTheDay();
-            ViewBag.Date = _sidebar.DateOfTheDay();
+            SidebarViewBags();
 
             if (!ModelState.IsValid)
             {
@@ -147,6 +140,7 @@ namespace UrbanDictionary1.Controllers
         [Authorize(Roles = "Admx")]
         public async Task<IActionResult> UnverifiedList()
         {
+            SidebarViewBags();
             var allExpressions = await _service.GetAllUnverifiedAsync();
             return View(allExpressions);
         }
@@ -173,6 +167,25 @@ namespace UrbanDictionary1.Controllers
 
         }
 
+        public async Task <IActionResult> AuthorExpressions(int id)
+        {
+            SidebarViewBags();
+            var ExpressionDetails = _service.GetByIdAsync(id);
+            if (ExpressionDetails == null) return View("NotFound");
+            ViewBag.Autor = ExpressionDetails.Result.Author;
+            var allExpressions = await _service.GetAllAuthorExpressions(ExpressionDetails.Result);
+            return View(allExpressions);
+        }
+        
+        public async Task<IActionResult> AuthorExpressionsSidebar(string id)
+        {
+            SidebarViewBags();
+            var ExpressionDetails = _service.GetByAuthorAsync(id);
+            if (ExpressionDetails == null) return View("NotFound");
+            ViewBag.Autor = ExpressionDetails.Result.Author;
+            var allExpressions = await _service.GetAllAuthorExpressions(ExpressionDetails.Result);
+            return View("AuthorExpressions" , allExpressions);
+        }
 
     }
 }

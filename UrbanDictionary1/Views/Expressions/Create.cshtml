@@ -49,7 +49,7 @@
                 <div class="example">@ViewBag.Example</div>
                 <div class="card-info">
                     adăugat de
-                    <span class="author">@ViewBag.Author</span>
+                    <a asp-controller="Expressions" asp-action="AuthorExpressionsSidebar" asp-route-id="@ViewBag.Author"><span class="author">@ViewBag.Author</span> </a>
                     pe
                     <span class="date">@ViewBag.Date</span>
                 </div>
