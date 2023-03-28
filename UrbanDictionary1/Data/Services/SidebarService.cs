@@ -17,7 +17,6 @@ namespace UrbanDictionary1.Data.Services
 
         public Expression FindExpOfTheDay()
         {   
-            //selecteaza toate expresiile din ziua precedenta
             var i = 1;
             while(true) 
             {   
