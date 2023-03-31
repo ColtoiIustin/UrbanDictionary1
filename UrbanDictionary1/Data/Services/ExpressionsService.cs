@@ -124,9 +124,9 @@ namespace UrbanDictionary1.Data.Services
             var result = _context.Expressions.FirstOrDefault(x => x.Id == expId).Dislikes;
             return result;
         }
-        public void LikeDislike(int expId, string likeType, string userId)
+        public string LikeDislike(int expId, string likeType, string userId)
         {
-            
+            string action = null;
             var existingLike = _context.Likes.SingleOrDefault(l => l.ExpressionId == expId && l.UserId == userId);
             var currentExp = _context.Expressions.FirstOrDefault(e => e.Id == expId);
 
@@ -139,10 +139,12 @@ namespace UrbanDictionary1.Data.Services
                         case "like":
                             currentExp.Likes--;
                             _context.Likes.Remove(existingLike);
+                            action = "like-like";
                             break;
                         case "dislike":
                             currentExp.Dislikes--;
                             currentExp.Likes++;
+                            action = "dislike-like";
                             break;
                     }             
                 }
@@ -153,10 +155,12 @@ namespace UrbanDictionary1.Data.Services
                         case "like":
                             currentExp.Likes--;
                             currentExp.Dislikes++;
+                            action = "like-dislike";
                             break;
                         case "dislike":
                             currentExp.Dislikes--;
                             _context.Likes.Remove(existingLike);
+                            action = "dislike-dislike";
                             break;
                     }
                 }
@@ -168,8 +172,13 @@ namespace UrbanDictionary1.Data.Services
                 if (likeType == "like")
                 {
                     currentExp.Likes++;
+                    action = "none-like";
                 }
-                else currentExp.Dislikes++;
+                else
+                {
+                    currentExp.Dislikes++;
+                    action = "none-dislike";
+                }
 
 
                     // Create a new like
@@ -182,8 +191,19 @@ namespace UrbanDictionary1.Data.Services
                 _context.Likes.Add(like);
             }
             _context.SaveChanges();
-          
 
+            return action;
+        }
+
+        public string GetUserActionForPost(int expId , string userId)
+        {
+            var existingLike = _context.Likes.SingleOrDefault(l => l.ExpressionId == expId && l.UserId == userId);
+            if (existingLike != null)
+                return existingLike.Type;
+            else
+                return null;
+            
+            
         }
     }
 }

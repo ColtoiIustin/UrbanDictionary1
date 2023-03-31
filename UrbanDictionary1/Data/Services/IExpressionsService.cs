@@ -16,10 +16,12 @@ namespace UrbanDictionary1.Data.Services
         Task ExpressionRejectedAsync(int id);
         Task<IEnumerable<Expression>> GetAllAuthorExpressions(Expression ExpressionDetails);
         Task<Expression> GetByAuthorAsync(string author);
-        void LikeDislike(int expId, string likeType, string userId);
+        string LikeDislike(int expId, string likeType, string userId);
         int GetLikes(int expId);
         int GetDislikes(int expId);
-        
+        string GetUserActionForPost(int expId, string userId);
+
+
 
 
     }

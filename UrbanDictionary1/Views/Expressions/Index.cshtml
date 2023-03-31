@@ -24,7 +24,7 @@
                     }
             @foreach (var item in Model)
             {
-            <div id="expContainer_@item.Id" class="expression-card">
+            <div id="expContainer_@item.Id" data-exp-id="@item.Id" class="expression-card">
                 <div class="first-row">
                         <div class="expression">@Html.DisplayFor(modelitem => item.Name)</div>
                         <a asp-controller="Expressions" asp-action="Index" class="share"><img class="share-icon" src="~/Images/share.svg" /></a>
@@ -39,14 +39,14 @@
                 </div>
                 <div class="last-row">
                     <div class="likes-system">
-                            <a data-exp-id="@item.Id" data-like-type="like" class="like-part" >
+                            <a data-exp-id="@item.Id" data-like-type="like" class="like-part">
                                 <img src="~/Images/like.svg" />
                                 <span class="likes">@Html.DisplayFor(modelItem => item.Likes)</span>
-                        </a>
+                            </a>
                             <a data-exp-id="@item.Id" data-like-type="dislike"  class="dislike-part" >
                                 <img src="~/Images/dislike.svg" />
                                 <span class="dislikes">@Html.DisplayFor(modelItem => item.Dislikes)</span>
-                        </a>
+                            </a>
                     </div>
                         <a asp-controller="Expressions" asp-action="Index" class="report"><img src="~/Images/report.svg" /></a>
                 </div>
