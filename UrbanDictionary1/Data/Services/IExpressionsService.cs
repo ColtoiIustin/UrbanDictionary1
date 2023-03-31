@@ -1,4 +1,5 @@
-﻿using UrbanDictionary1.Models;
+﻿using Microsoft.AspNetCore.Mvc;
+using UrbanDictionary1.Models;
 
 namespace UrbanDictionary1.Data.Services
 {
@@ -15,6 +16,10 @@ namespace UrbanDictionary1.Data.Services
         Task ExpressionRejectedAsync(int id);
         Task<IEnumerable<Expression>> GetAllAuthorExpressions(Expression ExpressionDetails);
         Task<Expression> GetByAuthorAsync(string author);
+        void LikeDislike(int expId, string likeType, string userId);
+        int GetLikes(int expId);
+        int GetDislikes(int expId);
+        
 
 
     }

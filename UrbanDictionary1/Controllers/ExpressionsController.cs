@@ -2,10 +2,13 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration.UserSecrets;
+using Microsoft.Extensions.Options;
 using System.Drawing.Text;
 using UrbanDictionary1.Areas.Identity.Data;
 using UrbanDictionary1.Data;
 using UrbanDictionary1.Data.Services;
+using UrbanDictionary1.Migrations;
 using UrbanDictionary1.Models;
 
 namespace UrbanDictionary1.Controllers
@@ -23,10 +26,13 @@ namespace UrbanDictionary1.Controllers
             ViewBag.Example = _sidebar.ExampleOfTheDay();
             ViewBag.Author = _sidebar.AuthorOfTheDay();
             ViewBag.Date = _sidebar.DateOfTheDay();
-
         }
 
-        public ExpressionsController(IExpressionsService service, ISidebarService sidebar, UserManager<ApplicationUser> userManager)
+        
+        public ExpressionsController(IExpressionsService service,
+            ISidebarService sidebar,
+            UserManager<ApplicationUser> userManager
+            )
         {
             _service = service;
             _sidebar = sidebar;
@@ -67,7 +73,7 @@ namespace UrbanDictionary1.Controllers
         //POST: Expressions/TakeDataAndCreate
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> TakeDataAndCreate([Bind("Name,Explication,Example1,Likes,Dislikes")] Expression expression)
+        public async Task<IActionResult> TakeDataAndCreate([Bind("Name,Explication,Example1")] Expression expression)
         {
             SidebarViewBags();
 
@@ -102,7 +108,7 @@ namespace UrbanDictionary1.Controllers
         //POST: Expressions/TakeDataAndEdit
         [HttpPost]
         [Authorize(Roles = "Admx")]
-        public async Task<IActionResult> EditConfirmed(int id, [Bind("Id,Name,Explication,Example1,CreationDate,Author,Likes,Dislikes")] Expression expression)
+        public async Task<IActionResult> EditConfirmed(int id, [Bind("Id,Name,Explication,Example1")] Expression expression)
         {
             if (!ModelState.IsValid)
             {
@@ -115,7 +121,7 @@ namespace UrbanDictionary1.Controllers
         }
 
 
-        //Get: Expressions/Delete/1
+        //Get: Expressions/1/1
         [Authorize(Roles = "Admx")]
         public async Task<IActionResult> Delete(int id)
         {
@@ -185,6 +191,20 @@ namespace UrbanDictionary1.Controllers
             ViewBag.Autor = ExpressionDetails.Result.Author;
             var allExpressions = await _service.GetAllAuthorExpressions(ExpressionDetails.Result);
             return View("AuthorExpressions" , allExpressions);
+        }
+
+
+        
+        public JsonResult LikeDislike(int expId, string likeType)
+        {
+            string userId = _userManager.GetUserId(User);
+            _service.LikeDislike(expId , likeType , userId);
+
+            // Return the updated number of likes and dislikes
+            var totalLikes = _service.GetLikes(expId);
+            var totalDislikes = _service.GetDislikes(expId);
+            var data = new { likes = totalLikes, dislikes = totalDislikes , expId};
+            return Json(data);
         }
 
     }

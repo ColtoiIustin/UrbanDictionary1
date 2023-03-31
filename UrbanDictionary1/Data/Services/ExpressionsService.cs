@@ -22,6 +22,8 @@ namespace UrbanDictionary1.Data.Services
         {
             expression.CreationDate = DateTime.Today.ToString("dd.MM.yyyy");
             expression.IsVerified = false;
+            expression.Likes = 0;
+            expression.Dislikes= 0;
             await _context.Expressions.AddAsync(expression);
             await _context.SaveChangesAsync();
         }
@@ -64,7 +66,7 @@ namespace UrbanDictionary1.Data.Services
 
         public async Task<Expression> UpdateAsync(int id, Expression newExpression)
         {
-            _context.Update(newExpression);
+            _context.Expressions.Update(newExpression);
             await _context.SaveChangesAsync();
             return(newExpression);
         }
@@ -110,6 +112,78 @@ namespace UrbanDictionary1.Data.Services
         {
             var result = await _context.Expressions.FirstOrDefaultAsync(x => x.Author == author);
             return result;
+        }
+
+        public int GetLikes(int expId)
+        {
+            var result = _context.Expressions.FirstOrDefault(x => x.Id == expId).Likes;
+            return result;
+        }
+        public int GetDislikes(int expId)
+        {
+            var result = _context.Expressions.FirstOrDefault(x => x.Id == expId).Dislikes;
+            return result;
+        }
+        public void LikeDislike(int expId, string likeType, string userId)
+        {
+            
+            var existingLike = _context.Likes.SingleOrDefault(l => l.ExpressionId == expId && l.UserId == userId);
+            var currentExp = _context.Expressions.FirstOrDefault(e => e.Id == expId);
+
+            if (existingLike != null)
+            {
+                if (likeType == "like")
+                {
+                    switch(existingLike.Type)
+                    {
+                        case "like":
+                            currentExp.Likes--;
+                            _context.Likes.Remove(existingLike);
+                            break;
+                        case "dislike":
+                            currentExp.Dislikes--;
+                            currentExp.Likes++;
+                            break;
+                    }             
+                }
+                else
+                {
+                    switch (existingLike.Type)
+                    {
+                        case "like":
+                            currentExp.Likes--;
+                            currentExp.Dislikes++;
+                            break;
+                        case "dislike":
+                            currentExp.Dislikes--;
+                            _context.Likes.Remove(existingLike);
+                            break;
+                    }
+                }
+                // Update the existing like
+                existingLike.Type = likeType;
+            }
+            else
+            {
+                if (likeType == "like")
+                {
+                    currentExp.Likes++;
+                }
+                else currentExp.Dislikes++;
+
+
+                    // Create a new like
+                    var like = new Likes
+                     {
+                          ExpressionId = expId,
+                          UserId = userId,
+                          Type = likeType
+                     };
+                _context.Likes.Add(like);
+            }
+            _context.SaveChanges();
+          
+
         }
     }
 }

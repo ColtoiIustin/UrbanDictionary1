@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using UrbanDictionary1.Areas.Identity.Data;
+using UrbanDictionary1.Data;
 
 namespace UrbanDictionary1.Models
 {
@@ -29,18 +30,15 @@ namespace UrbanDictionary1.Models
         public string? CreationDate { get; set; }
 
         public string? Author { get; set; }
-
-
-        [DisplayName("Number Of Likes")]
-        [DataType(DataType.MultilineText)]
+        
         public int Likes { get; set; }
 
-
-        [DisplayName("Number Of Dislikes")]
-        [DataType(DataType.MultilineText)]
         public int Dislikes { get; set; }
 
         public bool IsVerified { get; set; }
+
+        public LikeType Type { get; set; }
+
 
     }
 }

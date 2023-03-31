@@ -16,8 +16,9 @@ namespace UrbanDictionary1.Data
             
         }
         public DbSet<Expression> Expressions { get; set; }
+        public DbSet<Likes> Likes { get; set; }
 
-        
-        
+
+
     }
 }

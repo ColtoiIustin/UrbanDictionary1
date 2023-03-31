@@ -7,8 +7,12 @@
     <!--<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" /> -->
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <!--<link rel="stylesheet" href="~/UrbanDictionary1.styles.css" asp-append-version="true" /> -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 </head>
 <body>
+    <button id="buton">ds</button>
+    <span id="spa">45</span>
     <div class="thebody">
         <header class="theheader">
             <div class="wrapper">
@@ -22,7 +26,7 @@
                             <li><a asp-controller="Expressions" asp-action="Index">Acasă</a></li>
                             <li><a asp-controller="Expressions" asp-action="Create">Adaugă</a></li>
                             <li><a asp-area="Identity" asp-page="/Account/Login">Autentificare</a></li>
-                            <li><a href="/src/contact.html">Contact</a></li>
+                            <li><a asp-controller="Expressions" asp-action="Index">Contact</a></li>
                         </ul>
                     </nav>
                 </div>
@@ -38,6 +42,7 @@
                 <partial name="_LoginPartial" />
                 
             </div>
+            
         </header>
           @RenderBody()
         <footer class="thefooter">
