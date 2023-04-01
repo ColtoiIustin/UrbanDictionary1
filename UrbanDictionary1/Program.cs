@@ -39,6 +39,7 @@ builder.Services.Configure<IdentityOptions>(options =>
 //Services configuration
 builder.Services.AddScoped<IExpressionsService, ExpressionsService>();
 builder.Services.AddScoped<ISidebarService, SidebarService>();
+builder.Services.AddScoped<IContactService, ContactService>();
 
 
 var app = builder.Build();

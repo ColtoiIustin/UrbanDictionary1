@@ -17,6 +17,7 @@ namespace UrbanDictionary1.Controllers
     {
         private readonly IExpressionsService _service;
         private readonly ISidebarService _sidebar;
+        private readonly IContactService _contact;
         private readonly UserManager<ApplicationUser> _userManager;
 
         private void SidebarViewBags()
@@ -31,12 +32,14 @@ namespace UrbanDictionary1.Controllers
         
         public ExpressionsController(IExpressionsService service,
             ISidebarService sidebar,
+            IContactService contact,
             UserManager<ApplicationUser> userManager
             )
         {
             _service = service;
             _sidebar = sidebar;
             _userManager = userManager;
+            _contact= contact;
             
         }
 
@@ -224,5 +227,24 @@ namespace UrbanDictionary1.Controllers
             return Json(data);
         }
 
+        public IActionResult Contact()
+        {
+            
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Contact([Bind("Email, Content")] Message message)
+        {
+            SidebarViewBags();
+
+            if (!ModelState.IsValid)
+            {
+                return View("Contact", message);
+            }
+            await _contact.AddAsync(message);
+            return RedirectToAction(nameof(Index));
+
+        }
     }
 }

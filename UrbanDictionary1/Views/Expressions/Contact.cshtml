@@ -1,0 +1,49 @@
+﻿@model UrbanDictionary1.Models.Message
+
+@{
+    ViewData["Title"] = "Contacteaza-ne";
+}
+
+<div class="container">
+    <div class="content">
+        <div class="contact-page">
+            <h2>Contactează-ne</h2>
+            <form asp-action="Contact" id="the-form" class="contact-form">
+                <div asp-validation-summary="ModelOnly" ></div>
+
+                <label asp-for="Email"><b>Adresa ta de email</b></label>
+                <input placeholder="ex: adresa@gmail.com" name="Email">
+                <span asp-validation-for="Email" class="text-danger"></span>
+
+                <label asp-for="Content"><b>Mesajul tău</b></label>
+                <textarea name="Content" placeholder="Ce vrei să ne transmiți" rows="2" cols="50" ></textarea>
+                <span asp-validation-for="Content" class="text-danger"></span>
+
+                <button type="submit">Trimite</button>
+            </form>
+        </div>
+    </div>
+    <div class="sidebar">
+        <div class="expression-day">
+            <h2>Expresia zilei</h2>
+            <div class="expression-card">
+                <div class="first-row">
+                    <div class="expression">EXPRESIE</div>
+                    <a href="" class="share"><img src="/src/img/share.svg" /></a>
+                </div>
+                <div class="explication">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. </div>
+                <div class="example">Persoana: Am folosit o expresie. Îți place?</div>
+                <div class="card-info">
+                    adăugat de
+                    <span class="author">Iustin</span>
+                    pe
+                    <span class="date">16.03.2023</span>
+                </div>
+            </div>
+        </div>
+        <div class="add-expression">
+            <h2>Poți contribui și tu la acest dicționar</h2>
+            <a href="/src/add.html" class="add-button">Adaugă o expresie</a>
+        </div>
+    </div>
+</div>
