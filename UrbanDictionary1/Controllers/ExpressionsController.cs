@@ -194,23 +194,29 @@ namespace UrbanDictionary1.Controllers
         }
 
 
-        [Authorize]
+        
         public JsonResult LikeDislike(int expId, string likeType)
         {
-  
+
+                if (!User.Identity.IsAuthenticated) 
+                    return Json(new { userAuthenticated = "false" });
+
                 string userId = _userManager.GetUserId(User);
                 string action = _service.LikeDislike(expId, likeType, userId);
 
                 // Return the updated number of likes and dislikes
                 var totalLikes = _service.GetLikes(expId);
                 var totalDislikes = _service.GetDislikes(expId);
-                var data = new { likes = totalLikes, dislikes = totalDislikes, expId , action};
+                var data = new { likes = totalLikes, dislikes = totalDislikes, expId , action };
                 return Json(data);
             
         }
 
         public JsonResult GetUserActionForPost(int expId)
         {
+            if (!User.Identity.IsAuthenticated)
+                return Json(new { userAuthenticated = "false" });
+
             string userId = _userManager.GetUserId(User);
             string result = _service.GetUserActionForPost(expId, userId);
 

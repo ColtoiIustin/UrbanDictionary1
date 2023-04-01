@@ -39,23 +39,29 @@ function showHide() {
             url: '/Expressions/LikeDislike',
             data: { expId: expId, likeType: 'like' },
             success: function (result) {
-                // Update the UI to show the new like count for the specific post
-                const expContainer = $('#expContainer_' + result.expId);
-                expContainer.find('.likes').text(result.likes);
-                expContainer.find('.dislikes').text(result.dislikes);         
+                if (result.userAuthenticated === 'false')
+                    window.location.href = "/Identity/Account/Login";
+                else {
 
-                if (result.action === 'none-like') {
-                    dislikeButton.css('background-color', '');
-                    likeButton.css('background-color', 'green');
-                    likeButton.css('border-radius', '0.5em');
-                } else if (result.action === 'like-like') {
-                    dislikeButton.css('background-color', '');
-                    likeButton.css('background-color', '');
-                } else if (result.action === 'dislike-like') {
-                    dislikeButton.css('background-color', '');
-                    likeButton.css('background-color', 'green');
-                    likeButton.css('border-radius', '0.5em');
+                    // Update the UI to show the new like count for the specific post
+                    const expContainer = $('#expContainer_' + result.expId);
+                    expContainer.find('.likes').text(result.likes);
+                    expContainer.find('.dislikes').text(result.dislikes);
+
+                    if (result.action === 'none-like') {
+                        dislikeButton.css('background-color', '');
+                        likeButton.css('background-color', 'green');
+                        likeButton.css('border-radius', '0.5em');
+                    } else if (result.action === 'like-like') {
+                        dislikeButton.css('background-color', '');
+                        likeButton.css('background-color', '');
+                    } else if (result.action === 'dislike-like') {
+                        dislikeButton.css('background-color', '');
+                        likeButton.css('background-color', 'green');
+                        likeButton.css('border-radius', '0.5em');
+                    }
                 }
+                
             },
             error: function (xhr, status, error) {
                 // Handle errors
@@ -75,24 +81,27 @@ function showHide() {
             url: '/Expressions/LikeDislike',
             data: { expId : expId , likeType : 'dislike' },
             success: function (result) {
-                // Update the UI to show the new like count for the specific post
-                const expContainer = $('#expContainer_' + result.expId);
-                expContainer.find('.likes').text(result.likes);
-                expContainer.find('.dislikes').text(result.dislikes); 
+                if (result.userAuthenticated === 'false')
+                    window.location.href = "/Identity/Account/Login";
+                else {
+                    // Update the UI to show the new like count for the specific post
+                    const expContainer = $('#expContainer_' + result.expId);
+                    expContainer.find('.likes').text(result.likes);
+                    expContainer.find('.dislikes').text(result.dislikes);
 
-                if (result.action === 'none-dislike') {
-                    likeButton.css('background-color', '');
-                    dislikeButton.css('background-color', 'red');
-                    dislikeButton.css('border-radius', '0.5em');
-                } else if (result.action === 'dislike-dislike') {
-                    likeButton.css('background-color', '');
-                    dislikeButton.css('background-color', '');
-                } else if (result.action === 'like-dislike') {
-                    likeButton.css('background-color', '');
-                    dislikeButton.css('background-color', 'red');
-                    dislikeButton.css('border-radius', '0.5em');
+                    if (result.action === 'none-dislike') {
+                        likeButton.css('background-color', '');
+                        dislikeButton.css('background-color', 'red');
+                        dislikeButton.css('border-radius', '0.5em');
+                    } else if (result.action === 'dislike-dislike') {
+                        likeButton.css('background-color', '');
+                        dislikeButton.css('background-color', '');
+                    } else if (result.action === 'like-dislike') {
+                        likeButton.css('background-color', '');
+                        dislikeButton.css('background-color', 'red');
+                        dislikeButton.css('border-radius', '0.5em');
+                    }
                 }
-                
             },
             error: function (xhr, status, error) {
                 // Handle errors
@@ -110,15 +119,18 @@ $(document).ready(function () {
 
         // Make an AJAX request to get the user's action for the post
         $.get('/Expressions/GetUserActionForPost', { expId: expId }, function (data) {
-            
-            // Update the button color based on the user's action
-            if (data.action === 'like') {
-                likeButton.css('background-color', 'green');
-                likeButton.css('border-radius', '0.5em');
-                likesSystem.css()
-            } else if (data.action === 'dislike') {
-                dislikeButton.css('background-color', 'red');
-                dislikeButton.css('border-radius', '0.5em');
+
+            if (data.userAuthenticated != 'false') {
+
+                // Update the button color based on the user's action
+                if (data.action === 'like') {
+                    likeButton.css('background-color', 'green');
+                    likeButton.css('border-radius', '0.5em');
+                    likesSystem.css()
+                } else if (data.action === 'dislike') {
+                    dislikeButton.css('background-color', 'red');
+                    dislikeButton.css('border-radius', '0.5em');
+                }
             }
         });
     });
