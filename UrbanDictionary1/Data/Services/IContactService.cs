@@ -8,5 +8,6 @@ namespace UrbanDictionary1.Data.Services
         Task AddAsync(Message message);
         Task<IEnumerable<Message>> GetAllAsync();
         Task DeleteAsync(int id);
+        Task<Message> GetByIdAsync(int id);
     }
 }

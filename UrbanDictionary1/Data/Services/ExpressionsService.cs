@@ -202,8 +202,18 @@ namespace UrbanDictionary1.Data.Services
                 return existingLike.Type;
             else
                 return null;
-            
-            
+                        
+        }
+
+        public void ChangeAuthor(string oldUsername, string newUsername)
+        {
+            var expressions = from e in _context.Expressions
+                              where e.Author == oldUsername
+                              select e;
+            foreach (var exp in expressions) {
+                exp.Author = newUsername;
+            }
+            _context.SaveChangesAsync();
         }
     }
 }

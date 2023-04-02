@@ -1,0 +1,62 @@
+﻿@using Microsoft.AspNetCore.Authorization;
+@using Microsoft.AspNetCore.Identity;
+@using UrbanDictionary1.Areas.Identity.Data;
+
+@model IEnumerable<UrbanDictionary1.Models.Message>
+@inject IAuthorizationService AuthorizationService
+@{
+    ViewData["Title"] = "Expresii";
+}
+
+@inject UserManager<ApplicationUser> UserManager
+@inject SignInManager<ApplicationUser> SignInManager
+
+
+<div class="container">
+    <div class="content">
+        <div class="expressions-list">
+            <h1>Lista Mesaje</h1>
+
+            @foreach (var item in Model)
+            {
+                <div id="messageContainer_@item.Id" data-exp-id="@item.Id" class="expression-card">
+                    <div class="first-row">
+                        <div class="expression" >@Html.DisplayFor(modelitem => item.Email) </div>
+                        
+                    </div>
+                    <div class="explication">@Html.DisplayFor(modelItem => item.Content)</div>
+                    
+                    @if ((await AuthorizationService.AuthorizeAsync(User, "RequireAdmx")).Succeeded)
+                    {
+                        <a asp-controller="Expressions" asp-action="DeleteMessage" asp-route-id="@item.Id">Delete</a>                 
+                    }
+                </div>
+            }
+        </div>
+    </div>
+
+    <div class="sidebar">
+        <div class="expression-day">
+            <h2>Expresia zilei</h2>
+            <div class="expression-card">
+                <div class="first-row">
+                    <div class="expression">@ViewBag.Name</div>
+                    <a href="" class="share"><img src="~/Images/share.svg" /></a>
+                </div>
+                <div class="explication">@ViewBag.Description</div>
+                <div class="example">@ViewBag.Example</div>
+                <div class="card-info">
+                    adăugat de
+                    <a asp-controller="Expressions" asp-action="AuthorExpressionsSidebar" asp-route-id="@ViewBag.Author"><span class="author">@ViewBag.Author</span> </a>
+                    pe
+                    <span class="date">@ViewBag.Date</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="add-expression">
+            <h2>Poți contribui și tu la acest dicționar</h2>
+            <a asp-controller="Expressions" asp-action="Create" class="add-button">Adaugă o expresie</a>
+        </div>
+    </div>
+</div>

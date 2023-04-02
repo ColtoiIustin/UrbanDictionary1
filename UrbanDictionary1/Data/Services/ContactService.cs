@@ -31,5 +31,12 @@ namespace UrbanDictionary1.Data.Services
             var result = await _context.Message.ToListAsync();
             return (result);
         }
+
+        public async Task<Message> GetByIdAsync(int id)
+        {
+            var result = await _context.Message.FirstOrDefaultAsync(x => x.Id == id);
+            return result;
+        }
+
     }
 }

@@ -246,5 +246,28 @@ namespace UrbanDictionary1.Controllers
             return RedirectToAction(nameof(Index));
 
         }
+
+        [Authorize(Roles = "Admx")]
+        public async Task<IActionResult> ContactMessages()
+        {
+            SidebarViewBags();
+            var allMessages = await _contact.GetAllAsync();
+            return View(allMessages);
+        }
+
+        
+        [Authorize(Roles = "Admx")]
+        public async Task<IActionResult> DeleteMessage(int id)
+        {
+            var MessageDetails = await _contact.GetByIdAsync(id);
+            if (MessageDetails == null) return View("NotFound");
+
+            await _contact.DeleteAsync(id);
+            return RedirectToAction(nameof(Index));
+
+        }
+
+        
+
     }
 }

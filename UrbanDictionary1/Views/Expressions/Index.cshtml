@@ -20,7 +20,8 @@
         <div class="expressions-list">
             @if ((await AuthorizationService.AuthorizeAsync(User, "RequireAdmx")).Succeeded)
                     {
-                         <a asp-controller="Expressions" asp-action="UnverifiedList" >Unverified List</a>
+                         <a asp-controller="Expressions" asp-action="UnverifiedList" >Lista Neverificate</a>
+                         <a asp-controller="Expressions" asp-action="ContactMessages" >Mesaje Contact</a>
                     }
             @foreach (var item in Model)
             {

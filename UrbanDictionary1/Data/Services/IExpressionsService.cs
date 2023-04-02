@@ -20,8 +20,7 @@ namespace UrbanDictionary1.Data.Services
         int GetLikes(int expId);
         int GetDislikes(int expId);
         string GetUserActionForPost(int expId, string userId);
-
-
+        void ChangeAuthor(string oldUsername, string newUsername);
 
 
     }

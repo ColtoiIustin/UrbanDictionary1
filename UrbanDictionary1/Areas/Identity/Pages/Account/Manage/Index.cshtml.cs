@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using UrbanDictionary1.Areas.Identity.Data;
+using UrbanDictionary1.Data.Services;
 
 namespace UrbanDictionary1.Areas.Identity.Pages.Account.Manage
 {
@@ -19,13 +20,16 @@ namespace UrbanDictionary1.Areas.Identity.Pages.Account.Manage
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly IExpressionsService _service;
 
         public IndexModel(
             UserManager<ApplicationUser> userManager,
+            IExpressionsService service,
             SignInManager<ApplicationUser> signInManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _service = service; 
         }
 
         /// <summary>
@@ -118,6 +122,7 @@ namespace UrbanDictionary1.Areas.Identity.Pages.Account.Manage
 
             await _signInManager.RefreshSignInAsync(user);
             StatusMessage = "Profilul tau a fost updatat";
+            _service.ChangeAuthor(newUsername, Input.NewUsername);
             return RedirectToPage();
         }
     }
