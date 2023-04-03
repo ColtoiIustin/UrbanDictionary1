@@ -21,6 +21,8 @@ namespace UrbanDictionary1.Data.Services
         int GetDislikes(int expId);
         string GetUserActionForPost(int expId, string userId);
         void ChangeAuthor(string oldUsername, string newUsername);
+        IEnumerable<Expression> GetBySearchInput(string term);
+
 
 
     }

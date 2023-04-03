@@ -136,3 +136,33 @@ $(document).ready(function () {
     });
 
 });
+
+
+
+    $(function () {
+        $("#search").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: "/Expressions/SearchPosts",
+                    type: "GET",
+                    dataType: "json",
+                    data: { term: request.term },
+                    success: function (data) {
+                        response($.map(data, function (item) {
+                            return { label: item.name, value: item.id };
+                        }));
+                    }
+                });
+            },
+            minLength: 2,
+            delay: 500,
+            select: function (event, ui) {
+                window.location.href = "/Expressions/SearchExpression/" + ui.item.value;
+            }
+        }).autocomplete("instance")._renderItem = function (ul, item) {
+            return $("<li>")
+                .append("<div>" + item.label + "</div>")
+                .appendTo(ul);
+        };
+    });
+

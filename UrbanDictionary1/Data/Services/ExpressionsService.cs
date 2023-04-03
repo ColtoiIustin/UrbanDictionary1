@@ -215,5 +215,11 @@ namespace UrbanDictionary1.Data.Services
             }
             _context.SaveChangesAsync();
         }
+
+        public IEnumerable<Expression> GetBySearchInput(string term)
+        {   
+            var result = _context.Expressions.Where(e => e.Name.Contains(term)).ToList();
+            return result;
+        }
     }
 }

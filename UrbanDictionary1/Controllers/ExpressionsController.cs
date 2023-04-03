@@ -267,7 +267,20 @@ namespace UrbanDictionary1.Controllers
 
         }
 
-        
+        public JsonResult SearchPosts(string term)
+        {
+            var posts = _service.GetBySearchInput(term);
+
+            return Json(posts);
+        }
+
+        public async Task<IActionResult> SearchExpression(int id)
+        {
+
+            SidebarViewBags();
+            var Expression = await _service.GetByIdAsync(id);
+            return View(Expression);
+        }
 
     }
 }

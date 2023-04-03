@@ -1,0 +1,89 @@
+﻿@using Microsoft.AspNetCore.Authorization;
+@using Microsoft.AspNetCore.Identity;
+@using Microsoft.Extensions.Options;
+@using UrbanDictionary1.Areas.Identity.Data;
+
+
+@model UrbanDictionary1.Models.Expression
+@inject IAuthorizationService AuthorizationService
+@{
+    ViewData["Title"] = "Expresii";
+}
+
+@inject UserManager<ApplicationUser> UserManager
+@inject SignInManager<ApplicationUser> SignInManager
+
+
+
+<div class="container">
+    <div class="content">
+        <div class="expressions-list">
+            @if ((await AuthorizationService.AuthorizeAsync(User, "RequireAdmx")).Succeeded)
+            {
+                <a asp-controller="Expressions" asp-action="UnverifiedList">Lista Neverificate</a>
+                <a asp-controller="Expressions" asp-action="ContactMessages">Mesaje Contact</a>
+            }
+          
+                
+                <div id="expContainer_@Html.DisplayFor(model => model.Id)" data-exp-id="@Html.DisplayFor(model => model.CreationDate)" class="expression-card">
+                    <div class="first-row">
+                        <div class="expression">@Html.DisplayFor(model => model.Name)</div>
+                        <a asp-controller="Expressions" asp-action="Index" class="share"><img class="share-icon" src="~/Images/share.svg" /></a>
+                    </div>
+                    <div class="explication">@Html.DisplayFor(model => model.Explication)</div>
+                    <div class="example">@Html.DisplayFor(model => model.Example1)</div>
+                    <div class="card-info">
+                        adăugat de
+                        <a asp-controller="Expressions" asp-action="AuthorExpressions" asp-route-id="@Html.DisplayFor(model => model.Id)"><span class="author">@Html.DisplayFor(model => model.Author)</span> </a>
+                        pe
+                        <span class="date">@Html.DisplayFor(model => model.CreationDate)</span>
+                    </div>
+                    <div class="last-row">
+                        <div class="likes-system">
+                            <a data-exp-id="@Html.DisplayFor(model => model.Id)" data-like-type="like" class="like-part">
+                                <img src="~/Images/like.svg" />
+                                <span class="likes">@Html.DisplayFor(model => model.Likes)</span>
+                            </a>
+                            <a data-exp-id="@Html.DisplayFor(model => model.Id)" data-like-type="dislike" class="dislike-part">
+                                <img src="~/Images/dislike.svg" />
+                                <span class="dislikes">@Html.DisplayFor(model => model.Dislikes)</span>
+                            </a>
+                        </div>
+                        <a asp-controller="Expressions" asp-action="Index" class="report"><img src="~/Images/report.svg" /></a>
+                    </div>
+
+                </div>
+
+            
+        </div>
+    </div>
+
+    <div class="sidebar">
+        <div class="expression-day">
+            <h2>Expresia zilei</h2>
+            <div class="expression-card">
+                <div class="first-row">
+                    <div class="expression">@ViewBag.Name</div>
+                    <a href="" class="share"><img src="~/Images/share.svg" /></a>
+                </div>
+                <div class="explication">@ViewBag.Description</div>
+                <div class="example">@ViewBag.Example</div>
+                <div class="card-info">
+                    adăugat de
+                    <a asp-controller="Expressions" asp-action="AuthorExpressionsSidebar" asp-route-id="@ViewBag.Author"><span class="author">@ViewBag.Author</span> </a>
+                    pe
+                    <span class="date">@ViewBag.Date</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="add-expression">
+            <h2>Poți contribui și tu la acest dicționar</h2>
+            <a asp-controller="Expressions" asp-action="Create" class="add-button">Adaugă o expresie</a>
+        </div>
+    </div>
+</div>
+
+
+
+
