@@ -274,12 +274,12 @@ namespace UrbanDictionary1.Controllers
             return Json(posts);
         }
 
-        public async Task<IActionResult> SearchExpression(int id)
+        public IActionResult SearchExpression(int id)
         {
 
             SidebarViewBags();
-            var Expression = await _service.GetByIdAsync(id);
-            return View(Expression);
+            var Expression = _service.SearchExpression(id);
+            return View("Index" , Expression);
         }
 
     }

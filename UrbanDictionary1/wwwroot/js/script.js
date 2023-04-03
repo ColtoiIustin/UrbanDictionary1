@@ -154,7 +154,7 @@ $(document).ready(function () {
                     }
                 });
             },
-            minLength: 2,
+            minLength: 1,
             delay: 500,
             select: function (event, ui) {
                 window.location.href = "/Expressions/SearchExpression/" + ui.item.value;

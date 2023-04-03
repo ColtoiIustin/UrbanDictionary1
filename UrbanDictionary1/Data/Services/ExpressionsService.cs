@@ -79,7 +79,7 @@ namespace UrbanDictionary1.Data.Services
                               select e;
 
             var result = await expressions.ToListAsync();
-            return (result);
+            return result;
         }
 
         public async Task ExpressionApprovedAsync(int id)
@@ -220,6 +220,16 @@ namespace UrbanDictionary1.Data.Services
         {   
             var result = _context.Expressions.Where(e => e.Name.Contains(term)).ToList();
             return result;
+        }
+
+        public IEnumerable<Expression> SearchExpression(int id)
+        {
+            var expressions = from e in _context.Expressions
+                              where e.Id == id
+                              select e;
+            var result = expressions.ToList();
+            return result;
+
         }
     }
 }

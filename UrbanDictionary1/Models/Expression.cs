@@ -12,18 +12,18 @@ namespace UrbanDictionary1.Models
 
 
         [DisplayName("Expression")]
-        [Required(ErrorMessage= "Expression is required")]
+        [Required(ErrorMessage= "Expresia este necesara")]
         [DataType(DataType.MultilineText)]
         public string? Name { get; set; }
 
 
-        [Required(ErrorMessage = "Explication is required")]
+        [Required(ErrorMessage = "Explicatia este necesara")]
         [DataType(DataType.MultilineText)]
         public string? Explication { get; set; }
 
 
-        [Required(ErrorMessage = "Example is required")]
-        [StringLength(50, MinimumLength =  1, ErrorMessage = "Example1 must be between 1 and 50 characters")]
+        [Required(ErrorMessage = "Exemplul este necesar")]
+        [StringLength(150, MinimumLength =  1, ErrorMessage = "Exemplul trebuie sa contina intre 1 si 100 de caractere")]
         [DataType(DataType.MultilineText)]
         public string? Example1 { get; set; }
 
