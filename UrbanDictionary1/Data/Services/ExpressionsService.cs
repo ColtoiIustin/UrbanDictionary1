@@ -218,7 +218,11 @@ namespace UrbanDictionary1.Data.Services
 
         public IEnumerable<Expression> GetBySearchInput(string term)
         {   
-            var result = _context.Expressions.Where(e => e.Name.Contains(term)).ToList();
+            var result = _context.Expressions
+                .Where(e => e.Name.StartsWith(term) || e.Name.Contains(term))
+                .OrderByDescending(e => e.Name.StartsWith(term))
+                .ThenBy(e => e.Name)
+                .ToList();
             return result;
         }
 
