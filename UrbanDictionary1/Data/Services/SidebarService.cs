@@ -32,6 +32,7 @@ namespace UrbanDictionary1.Data.Services
                     return result;
                
                 i++;
+                if (i >= 100) return null;
             }
            
         }

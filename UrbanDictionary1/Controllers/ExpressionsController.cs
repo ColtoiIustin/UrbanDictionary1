@@ -50,6 +50,7 @@ namespace UrbanDictionary1.Controllers
 
             SidebarViewBags();
             var allExpressions = await _service.GetAllAsync();
+            allExpressions = allExpressions.Reverse();
             return View(allExpressions);
         }
 
@@ -183,6 +184,7 @@ namespace UrbanDictionary1.Controllers
             if (ExpressionDetails == null) return View("NotFound");
             ViewBag.Autor = ExpressionDetails.Result.Author;
             var allExpressions = await _service.GetAllAuthorExpressions(ExpressionDetails.Result);
+            allExpressions = allExpressions.Reverse();
             return View(allExpressions);
         }
         

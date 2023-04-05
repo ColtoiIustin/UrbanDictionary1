@@ -81,7 +81,7 @@ namespace UrbanDictionary1.Areas.Identity.Pages.Account.Manage
             };
         }
 
-        [Authorize]
+        
         public async Task<IActionResult> OnGetAsync()
         {
             var user = await _userManager.GetUserAsync(User);
@@ -94,15 +94,12 @@ namespace UrbanDictionary1.Areas.Identity.Pages.Account.Manage
             return Page();
         }
 
-        [Authorize]
+        
         public async Task<IActionResult> OnPostAsync()
         {
+            
             var user = await _userManager.GetUserAsync(User);
-            if (user == null)
-            {
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
-            }
-
+            
             if (!ModelState.IsValid)
             {
                 await LoadAsync(user);
@@ -112,17 +109,23 @@ namespace UrbanDictionary1.Areas.Identity.Pages.Account.Manage
             var newUsername = await _userManager.GetUserNameAsync(user);
             if (Input.NewUsername != newUsername)
             {
+                user.UserName = Input.NewUsername; 
                 var setUserNameResult = await _userManager.SetUserNameAsync(user, Input.NewUsername);
                 if (!setUserNameResult.Succeeded)
                 {
                     StatusMessage = "Eroare neasteptata la schimbarea UserName-ului";
-                    return RedirectToPage();
+                    return RedirectToPage("/Expressions/Index");
+                }
+                else
+                {
+                    _service.ChangeAuthor(newUsername, Input.NewUsername);
                 }
             }
-
-            await _signInManager.RefreshSignInAsync(user);
+            
+            
+            
             StatusMessage = "Profilul tau a fost updatat";
-            _service.ChangeAuthor(newUsername, Input.NewUsername);
+     
             return RedirectToPage();
         }
     }
