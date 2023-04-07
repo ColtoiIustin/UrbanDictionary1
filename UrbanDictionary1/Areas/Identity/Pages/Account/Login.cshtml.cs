@@ -72,7 +72,7 @@ namespace UrbanDictionary1.Areas.Identity.Pages.Account
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
-            [Required]
+            [Required(ErrorMessage = "Adresa de email este necesara")]
             [EmailAddress]
             public string Email { get; set; }
 
@@ -80,7 +80,7 @@ namespace UrbanDictionary1.Areas.Identity.Pages.Account
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
-            [Required]
+            [Required(ErrorMessage = "Parola este necesara")]
             [DataType(DataType.Password)]
             public string Password { get; set; }
 
@@ -118,7 +118,12 @@ namespace UrbanDictionary1.Areas.Identity.Pages.Account
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
             returnUrl ??= Url.Content("~/");
-           
+
+            ViewData["Name"] = _sidebar.NameOfTheDay();
+            ViewData["Description"] = _sidebar.DescriptionOfTheDay();
+            ViewData["Example"] = _sidebar.ExampleOfTheDay();
+            ViewData["Author"] = _sidebar.AuthorOfTheDay();
+            ViewData["Date"] = _sidebar.DateOfTheDay();
 
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
 
