@@ -45,6 +45,36 @@ html {
     font-size: 1.1em;
 }
 
+.text-danger {
+    color: red;
+}
+
+input[type=submit] {
+    all: unset;
+    width: 40%;
+    max-width: 6em;
+    margin-inline: auto;
+    margin-block: 1em;
+    padding-inline: 1em;
+    padding-block: 0.5em;
+    border-radius: 0.5em;
+    background: $third-color;
+    color: $text-color;
+
+    @media (prefers-color-scheme: dark) {
+        background: $third-color-dark;
+        color: $text-color-dark;
+    }
+
+    &:hover {
+        background-color: $fourth-color;
+
+        @media (prefers-color-scheme: dark) {
+            background-color: $fourth-color-dark;
+        }
+    }
+}
+
 .thebody {
     display: grid;
     row-gap: 1em;
@@ -317,6 +347,12 @@ html {
         @media screen and (min-width: $MD) {
             grid-row: 1/2;
             grid-column: 1/2;
+        }
+
+        .error {
+            font-size: xx-large;
+            text-align: center;
+            padding-block: 6em;
         }
 
         .expressions-list {
@@ -693,6 +729,85 @@ html {
 
                         @media (prefers-color-scheme: dark) {
                             background-color: $fourth-color-dark;
+                        }
+                    }
+                }
+            }
+        }
+
+        .register-page {
+            padding: 1.5em;
+            text-align: center;
+
+            .register-form {
+                display: grid;
+                text-align: center;
+
+                input {
+                    border: 0;
+                    text-align: center;
+                    border-radius: 0.5em;
+                    width: 90%;
+                    max-width: 30em;
+                    min-height: 2.5em;
+                    margin: 0.8em;
+                    justify-self: center;
+
+                    @media (prefers-color-scheme: dark) {
+                        background-color: $primary-color-dark;
+                        color: $text-color-dark;
+                    }
+
+                    &::placeholder {
+                        color: $text-color;
+
+                        @media (prefers-color-scheme: dark) {
+                            color: $text-color-dark;
+                        }
+                    }
+                }
+
+                button {
+                    all: unset;
+                    padding-inline: 1em;
+                    padding-block: 0.5em;
+                    border-radius: 0.5em;
+                    width: 30%;
+
+                    @media screen and (min-width: $MD) {
+                        margin-inline-end: 12em;
+                    }
+
+                    background: $third-color;
+                    color: $text-color;
+
+                    @media (prefers-color-scheme: dark) {
+                        background: $third-color-dark;
+                        color: $text-color-dark;
+                    }
+
+                    &:hover {
+                        background-color: $fourth-color;
+
+                        @media (prefers-color-scheme: dark) {
+                            background-color: $fourth-color-dark;
+                        }
+                    }
+                }
+
+                a {
+                    text-decoration: none;
+                    color: $text-color;
+
+                    @media (prefers-color-scheme: dark) {
+                        color: $text-color-dark;
+                    }
+
+                    &:hover {
+                        color: $clickable-color;
+
+                        @media (prefers-color-scheme: dark) {
+                            color: $clickable-color-dark;
                         }
                     }
                 }

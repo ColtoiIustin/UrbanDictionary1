@@ -87,13 +87,13 @@ namespace UrbanDictionary1.Areas.Identity.Pages.Account
             /// 
 
 
-            [Required(ErrorMessage = "Expresia este necesara")]
+            [Required(ErrorMessage = "Numele de utilizator este necesar")]
             [Display(Name = "Username")]
             public string Username { get; set; }
 
 
-            [Required]
-            [EmailAddress(ErrorMessage = "Numele de utilizator este necesar")]
+            [Required(ErrorMessage = "Adresa de email este necesara")]
+            [EmailAddress(ErrorMessage = "Adresa de email invalida")]
             [Display(Name = "Email")]
             public string Email { get; set; }
 
@@ -110,6 +110,7 @@ namespace UrbanDictionary1.Areas.Identity.Pages.Account
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
+            [Required(ErrorMessage = "Confirma parola")]
             [DataType(DataType.Password)]
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "Parolele nu se potrivesc")]

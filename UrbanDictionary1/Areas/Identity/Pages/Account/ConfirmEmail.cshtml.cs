@@ -45,7 +45,7 @@ namespace UrbanDictionary1.Areas.Identity.Pages.Account
 
             code = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(code));
             var result = await _userManager.ConfirmEmailAsync(user, code);
-            StatusMessage = result.Succeeded ? "Iti multumim pentru confirmarea adresei de email. Acum te poti loga." : "A aparut o eroare la confirmarea adresei de email";
+            StatusMessage = result.Succeeded ? " Email confirmat cu succes. Acum te poti loga." : "A aparut o eroare la confirmarea adresei de email";
             return Page();
         }
     }

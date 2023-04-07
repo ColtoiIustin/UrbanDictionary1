@@ -15,7 +15,7 @@ using UrbanDictionary1.Data.Services;
 
 namespace UrbanDictionary1.Areas.Identity.Pages.Account.Manage
 {
-    [Authorize]
+    [Authorize(Roles = "Admx")]
     public class IndexModel : PageModel
     {
         private readonly UserManager<ApplicationUser> _userManager;
