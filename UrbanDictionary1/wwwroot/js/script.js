@@ -50,14 +50,14 @@ function showHide() {
 
                     if (result.action === 'none-like') {
                         dislikeButton.css('background-color', '');
-                        likeButton.css('background-color', 'green');
+                        likeButton.css('background-color', '#3c7334');
                         likeButton.css('border-radius', '0.5em');
                     } else if (result.action === 'like-like') {
                         dislikeButton.css('background-color', '');
                         likeButton.css('background-color', '');
                     } else if (result.action === 'dislike-like') {
                         dislikeButton.css('background-color', '');
-                        likeButton.css('background-color', 'green');
+                        likeButton.css('background-color', '#3c7334');
                         likeButton.css('border-radius', '0.5em');
                     }
                 }
@@ -91,14 +91,14 @@ function showHide() {
 
                     if (result.action === 'none-dislike') {
                         likeButton.css('background-color', '');
-                        dislikeButton.css('background-color', 'red');
+                        dislikeButton.css('background-color', '#994d45');
                         dislikeButton.css('border-radius', '0.5em');
                     } else if (result.action === 'dislike-dislike') {
                         likeButton.css('background-color', '');
                         dislikeButton.css('background-color', '');
                     } else if (result.action === 'like-dislike') {
                         likeButton.css('background-color', '');
-                        dislikeButton.css('background-color', 'red');
+                        dislikeButton.css('background-color', '#994d45');
                         dislikeButton.css('border-radius', '0.5em');
                     }
                 }
@@ -124,11 +124,11 @@ $(document).ready(function () {
 
                 // Update the button color based on the user's action
                 if (data.action === 'like') {
-                    likeButton.css('background-color', 'green');
+                    likeButton.css('background-color', '#3c7334');
                     likeButton.css('border-radius', '0.5em');
                     likesSystem.css()
                 } else if (data.action === 'dislike') {
-                    dislikeButton.css('background-color', 'red');
+                    dislikeButton.css('background-color', '#994d45');
                     dislikeButton.css('border-radius', '0.5em');
                 }
             }

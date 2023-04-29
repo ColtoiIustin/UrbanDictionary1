@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ActionConstraints;
 using Microsoft.EntityFrameworkCore;
+using System.Net.WebSockets;
 using UrbanDictionary1.Models;
 
 namespace UrbanDictionary1.Data.Services
@@ -17,7 +18,7 @@ namespace UrbanDictionary1.Data.Services
 
         public Expression FindExpOfTheDay()
         {   
-            var i = 1;
+            var i = 0;
             while(true) 
             {   
                 var TheLastDate = DateTime.Today.AddDays(-i).ToString("dd.MM.yyyy");
@@ -36,35 +37,48 @@ namespace UrbanDictionary1.Data.Services
             }
            
         }
-        
+
         public string NameOfTheDay()
         {
-            var result = FindExpOfTheDay().Name.ToString();
-            return result;
+            var result = FindExpOfTheDay();
+            if (result != null)     
+                return result.Name.ToString(); 
+            else return "inexistent";
+
+
         }
+        
         public string DescriptionOfTheDay()
         {
-            var result = FindExpOfTheDay().Explication.ToString();
-            return result;
+            var result = FindExpOfTheDay();
+            if (result != null)
+                return result.Explication.ToString();
+            else return "inexistent";
         }
 
         public string ExampleOfTheDay()
         {
-            var result = FindExpOfTheDay().Example1.ToString();
-            return result;
+            var result = FindExpOfTheDay();
+            if (result != null)
+                return result.Example1.ToString();
+            else return "inexistent";
         }
 
 
         public string AuthorOfTheDay()
         {
-            var result = FindExpOfTheDay().Author.ToString();
-            return result;
+            var result = FindExpOfTheDay();
+            if (result != null)
+                return result.Author.ToString();
+            else return "inexistent";
         }
 
         public string DateOfTheDay()
         {
-            var result = FindExpOfTheDay().CreationDate.ToString();
-            return result;
+            var result = FindExpOfTheDay();
+            if (result != null)
+                return result.CreationDate.ToString();
+            else return "inexistent";
         }
         
     }
