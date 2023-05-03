@@ -12,19 +12,17 @@
             <h2>AUTENTIFICĂ-TE</h2>
             <form id="the-form" method="post" class="login-form">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <input asp-for="Input.Email" placeholder="Introdu adresa de email" autocomplete="email" aria-required="true">
                 <label asp-for="Input.Email"><b>Email</b></label>
+                <input asp-for="Input.Email" placeholder="Introdu adresa de email" autocomplete="email" aria-required="true">
+                
                 <span asp-validation-for="Input.Email" class="text-danger"></span>
 
-                <input asp-for="Input.Password" type="password" placeholder="Introdu parola contului" autocomplete="current-password" aria-required="true">
                 <label asp-for="Input.Password"><b>Parolă</b></label>
+                <input asp-for="Input.Password" type="password" placeholder="Introdu parola contului" autocomplete="current-password" aria-required="true">
+                
                 <span asp-validation-for="Input.Password" class="text-danger"></span>
 
-                <div class="checkbox">
-                    <label asp-for="Input.RememberMe" class="form-label">
-                        
-                    </label>
-                </div>
+               
 
                 <div class="login-password">
                         <button id="login-submit" type="submit">Login</button>
