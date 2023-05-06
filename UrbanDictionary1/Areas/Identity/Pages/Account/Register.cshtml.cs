@@ -164,7 +164,7 @@ namespace UrbanDictionary1.Areas.Identity.Pages.Account
                             values: new { area = "Identity", userId = userId, code = code, returnUrl = returnUrl },
                             protocol: Request.Scheme);
 
-                        await SendEmailAsync(Input.Email, "Activeaza-ti contul",
+                         SendEmailAsync(Input.Email, "Activeaza-ti contul",
                             $"Te rugam sa confirmi adresa de email <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>apasand aici</a>.");
 
                         if (_userManager.Options.SignIn.RequireConfirmedAccount)
@@ -190,7 +190,7 @@ namespace UrbanDictionary1.Areas.Identity.Pages.Account
             return Page();
         }
 
-        private async Task<bool> SendEmailAsync(string email, string subject, string confirmLink)
+        private bool SendEmailAsync(string email, string subject, string confirmLink)
         {
             try
             {
